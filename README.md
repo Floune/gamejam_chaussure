@@ -6,4 +6,4 @@ gamejam + chaussure
 - `npm i`
 - compiler les trucs `browserify trucs.js -o bundle.js`
 - lancer serveur `http-server`
-- michel
+- ¯(ツ)/¯
