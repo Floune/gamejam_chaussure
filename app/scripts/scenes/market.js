@@ -50,18 +50,17 @@ export default class Market extends Phaser.Scene {
     .setInteractive()
 
     button.on('pointerup', () => {
-      this.score--
-      this.scoreText.setText(`Score: ${this.score}`)
-      this.bonus.bee = 1;
-      this.add.sprite(x - 100, y - 100, 'bee');
-      console.log(this.bonus)
+        this.score--
+        this.scoreText.setText(`Score: ${this.score}`)
+        this.bonus.bee = 1;
+        this.add.sprite(x - 100, y - 100, 'bee');
+        this.timer = this.time.addEvent({delay: 1000, loop: true, callback: this.updateCounter, callbackScope: this});
     })
     image.setInteractive();
     image.on('pointerup', () => {
       this.score++
       this.scoreText.setText(`Score: ${this.score}`)
     });
-    this.timer = this.time.addEvent({delay: 1000, loop: true, callback: this.updateCounter, callbackScope: this});
   }
 
   /**
@@ -72,7 +71,7 @@ export default class Market extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
   update(/* t, dt */) {
-    if(this.bonus.bee > 0 ) {
+    if(this.bonus.bee > 0 && this.bonus.bee !== undefined) {
       this.timer.repeatCount;
     }
   }
