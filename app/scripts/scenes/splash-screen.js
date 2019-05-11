@@ -7,21 +7,21 @@ export default class SplashScreen extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
+  constructor() {
     super({
       key: "SplashScreen",
 
       //  Splash screen and progress bar textures.
       pack: {
         files: [
-        {
-          key: "splash-screen",
-          type: "image"
-        },
-        {
-          key: "progress-bar",
-          type: "image"
-        }
+          {
+            key: "splash-screen",
+            type: "image"
+          },
+          {
+            key: "progress-bar",
+            type: "image"
+          }
         ]
       }
     });
@@ -32,20 +32,19 @@ export default class SplashScreen extends Phaser.Scene {
    *
    *  @protected
    */
-   preload() {
+  preload() {
     //  Display cover and progress bar textures.
     this.showCover();
     this.showProgressBar();
     this.load
-      .image('start_bee', 'splash-bee.png')
-      .image('red', 'red.png')
-      .image('bg1', 'bg1.jpg')
       .image("start_bee", "splash-bee.png")
       .image("red", "red.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
       .image("minus", "PNG/settings/98.png");
-    this.load.audio('startup_sound', 'Bee-noise.mp3');
+      .image("bg1", "bg1.jpg")
+      .image("back", "PNG/btn/prew.png");
+    this.load.audio("startup_sound", "Bee-noise.mp3");
 
     //  HINT: Declare all game assets to be loaded here.
   }
@@ -56,7 +55,7 @@ export default class SplashScreen extends Phaser.Scene {
    *
    *  @protected
    */
-   create() {
+  create() {
     //  We have nothing left to do here. Start the next scene.
     this.scene.start("Title");
 
@@ -69,7 +68,7 @@ export default class SplashScreen extends Phaser.Scene {
    *
    *  @private
    */
-   showCover() {
+  showCover() {
     this.add.image(0, 0, "splash-screen").setOrigin(0);
   }
 
@@ -78,7 +77,7 @@ export default class SplashScreen extends Phaser.Scene {
    *
    *  @private
    */
-   showProgressBar() {
+  showProgressBar() {
     //  Get the progress bar filler texture dimensions.
     const { width: w, height: h } = this.textures.get("progress-bar").get();
 
