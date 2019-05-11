@@ -15,12 +15,12 @@ import * as scenes from '@/scenes';
 /**
  *  Game canvas width.
  */
-export const width = 640;
+export const width = 1200;
 
 /**
  *  Game canvas height.
  */
-export const height = 480;
+export const height = 720;
 
 /**
  *  Adjust zoom factor.
@@ -101,7 +101,10 @@ export const physics = {
   /**
    *  Enable a physics engine by default on all game scenes.
    */
-  default: false
+  default: 'arcade',
+  arcade: {
+    gravity: {y: 200}
+  }
 };
 
 /**
