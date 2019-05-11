@@ -29,10 +29,7 @@ export default class Flower extends Phaser.Scene {
    *
    *  @protected
    */
-  preload() {
-    this.load.image("flower", "flower3.png");
-    this.load.image("background", "layer07_Sky.png");
-  }
+  preload() {}
 
   /**
    *  Responsible for setting up game objects on the screen.
@@ -43,19 +40,40 @@ export default class Flower extends Phaser.Scene {
   create(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const flower = this.add.sprite(x, y, "flower");
-    const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
-    flower.on("pointerdown", () => {
-      this.data.score++;
-      console.log(this.data.score);
-    });
-    flower.setInteractive();
+
+    const back_button = this.add.image(50, 660, "back").setScale(0.5, 0.5);
+    const pause_button = this.add.image(1000, 660, "pause").setScale(0.5, 0.5);
+    const play_button = this.add.image(1110, 660, "play").setScale(0.5, 0.5);
+
     back_button.setInteractive();
-    this.add.image(x, y, "background").setDepth(-1);
+    pause_button.setInteractive();
+    play_button.setInteractive();
+
+    pause_button.on("pointerup", () => {
+      this.scene.pause();
+      this.add.text(x - 150, 325, "|| Pause || ", {
+        font: "64px Arial",
+        color: "black"
+      });
+    });
+
+    play_button.on("pointerup", () => {
+      this.scene.resume();
+      console.log("here");
+    });
+
     back_button.alpha = 0.6;
     back_button.on("pointerup", () => this.scene.start("Title"));
     back_button.on("pointerover", () => back_button.setAlpha(1));
     back_button.on("pointerout", () => back_button.setAlpha(0.6));
+
+    pause_button.alpha = 0.6;
+    pause_button.on("pointerover", () => pause_button.setAlpha(1));
+    pause_button.on("pointerout", () => pause_button.setAlpha(0.6));
+
+    play_button.alpha = 0.6;
+    play_button.on("pointerover", () => play_button.setAlpha(1));
+    play_button.on("pointerout", () => play_button.setAlpha(0.6));
   }
 
   /**
@@ -68,9 +86,9 @@ export default class Flower extends Phaser.Scene {
   update(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const image = this.add.sprite(x, y, "flower");
-
-    image.on("pointerdown", () => {
+    const flower = this.add.sprite(x + 20, y, "flower");
+    flower.setInteractive();
+    flower.on("pointerdown", () => {
       this.data.score++;
       console.log(this.data.score);
     });
