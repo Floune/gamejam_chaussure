@@ -35,7 +35,7 @@ export default class SplashScreen extends Phaser.Scene {
     this.load
       .image('start_bee', 'splash-bee.png')
       .image('red', 'red.png')
-      .image('bg', 'bg.png');
+      .image('bg', 'bg.jpg');
 
     //  HINT: Declare all game assets to be loaded here.
   }

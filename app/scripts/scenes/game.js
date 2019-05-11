@@ -19,7 +19,7 @@ export default class Game extends Phaser.Scene {
    */
   create(/* data */) {
     //  TODO: Replace this content with really cool game code here :)
-    this.logo = this.add.existing(new Logo(this));
+
   }
 
   /**
@@ -31,6 +31,6 @@ export default class Game extends Phaser.Scene {
    *  @param {number} dt Time elapsed since last update.
    */
   update(/* t, dt */) {
-    this.logo.update();
+
   }
 }

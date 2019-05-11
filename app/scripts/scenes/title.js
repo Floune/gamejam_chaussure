@@ -33,12 +33,6 @@ export default class Title extends Phaser.Scene {
    */
    create(/* data */) {
 
-    const particule = this.add.particles('red');
-    const flame = particule.createEmitter({
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: 'ADD'
-    })
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const bg = this.add.image(x, y, 'bg');
@@ -46,13 +40,14 @@ export default class Title extends Phaser.Scene {
       .setVelocity(100, -100)
       .setBounce(1, 1)
       .setCollideWorldBounds(true)
-    flame.startFollow(logo);
 
-    const label = this.add.text(300, 400, 'Pollinize All the things !', {
+    // const titre = this.add.text() 
+
+    const label = this.add.text(x, y, 'Pollinize All the things !', {
       font: '50px Arial',
       color: 'yellow',
       stroke: 'yellow',
-      strokeThickness: 6
+      strokeThickness: 3
     });
 
     label
