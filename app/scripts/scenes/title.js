@@ -14,8 +14,33 @@ export default class Title extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init(/* data */) {
-   }
+   init(data) {
+    this.data.music = this.sound.add('startup_sound');
+    this.data.x = this.cameras.main.width / 2;
+    this.data.y = this.cameras.main.height / 2;
+    this.data.bg = this.add.image(this.data.x, this.data.y, 'bg1');
+    this.data.play_button = this.add.image(this.data.x, this.data.y, 'play').setInteractive();
+    this.data.logo = this.physics.add.image(this.data.x, this.data.y - 100, 'start_bee')
+    .setVelocity(100, -100)
+    .setBounce(1, 1)
+    .setCollideWorldBounds(true);
+    
+    this.data.titre = this.add.text(this.data.x, 80, 'Polliclicker', {
+      font: '80px Arial',
+      color: 'yellow',
+      stroke: 'black',
+      strokeThickness: 8
+    }).setOrigin(0.5, 0.5);
+    
+    this.data.label = this.add.text(this.data.x, 200, 'Pollinize All the things !', {
+      font: '60px Arial',
+      color: 'yellow',
+      stroke: 'black',
+      strokeThickness: 5
+    })      
+      .setOrigin(0.5, 0.5)
+      .setInteractive();
+  }
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
@@ -33,49 +58,21 @@ export default class Title extends Phaser.Scene {
    */
    create(/* data */) {
 
-    const x = this.cameras.main.width / 2;
-    const y = this.cameras.main.height / 2;
+    this.data.music.play();
+    this.data.label
 
-    const music = this.sound.add('startup_sound');
-    const bg = this.add.image(x, y, 'bg1');
-    const play_button = this.add.image(x, y, 'play').setInteractive();
-    const logo = this.physics.add.image(x, y - 100, 'start_bee')
-    .setVelocity(100, -100)
-    .setBounce(1, 1)
-    .setCollideWorldBounds(true);
+    this.data.label.on('pointerover', () => {this.data.label.setAlpha(1)})
+    this.data.label.on('pointerout', () => this.data.label.setAlpha(0.5))
 
-    const titre = this.add.text(x, 80, 'Polliclicker', {
-      font: '80px Arial',
-      color: 'yellow',
-      stroke: 'black',
-      strokeThickness: 8
-    }); 
-    titre.setOrigin(0.5, 0.5);
+    this.data.play_button.alpha = 0.6;
 
-    const label = this.add.text(x, 200, 'Pollinize All the things !', {
-      font: '60px Arial',
-      color: 'yellow',
-      stroke: 'black',
-      strokeThickness: 5
+    this.data.play_button.on('pointerover', () => { this.data.play_button.setAlpha(1); });
+    this.data.play_button.on('pointerout', () => this.data.play_button.setAlpha(0.6));
+    this.data.play_button.on('pointerup', () => { 
+      this.scene.start('Flower');
+      this.data.music.stop();
     });
 
-    music.play();
-
-    label
-      .setOrigin(0.5, 0.5)
-      .setInteractive();
-
-    play_button.alpha = 0.6;
-
-    play_button.on('pointerover', () => { play_button.setAlpha(1) });
-    play_button.on('pointerout', () => play_button.setAlpha(0.6));
-    play_button.on('pointerup', () => this.scene.start('Flower'));
-    label.on('pointerup', ()=> this.scene.start('Flower'));
-
-    label.on('pointerover', () => {
-      label.setAlpha(1);
-    });
-    label.on('pointerout', () =>label.setAlpha(0.5));
 
   }
 
@@ -87,8 +84,8 @@ export default class Title extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
    update(/* t, dt */) {
-
-   }
+    // this.logo.angle += 1;
+  }
 
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
