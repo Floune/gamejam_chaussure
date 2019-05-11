@@ -15,6 +15,7 @@ export default class Title extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
    init(data) {
+    this.data.rot_speed = 0;
     this.data.music = this.sound.add('startup_sound');
     this.data.x = this.cameras.main.width / 2;
     this.data.y = this.cameras.main.height / 2;
@@ -24,7 +25,7 @@ export default class Title extends Phaser.Scene {
     .setVelocity(100, -100)
     .setBounce(1, 1)
     .setCollideWorldBounds(true);
-    
+
     this.data.titre = this.add.text(this.data.x, 80, 'Polliclicker', {
       font: '80px Arial',
       color: 'yellow',
@@ -40,6 +41,8 @@ export default class Title extends Phaser.Scene {
     })      
       .setOrigin(0.5, 0.5)
       .setInteractive();
+    this.data.plus_button = this.add.image(1030, 650, 'plus').setInteractive();
+    this.data.minus_button = this.add.image(1150, 650, 'minus').setInteractive();
   }
 
   /**
@@ -63,6 +66,7 @@ export default class Title extends Phaser.Scene {
 
     this.data.label.on('pointerover', () => {this.data.label.setAlpha(1)})
     this.data.label.on('pointerout', () => this.data.label.setAlpha(0.5))
+    this.data.label.on('pointerdown', () => this.data.rot_speed += 1)
 
     this.data.play_button.alpha = 0.6;
 
@@ -73,6 +77,8 @@ export default class Title extends Phaser.Scene {
       this.data.music.stop();
     });
 
+    this.data.plus_button.on('pointerdown', () => { this.data.rot_speed += 1})
+    this.data.minus_button.on('pointerdown', () => { this.data.rot_speed -= 1})
 
   }
 
@@ -84,7 +90,7 @@ export default class Title extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
    update(/* t, dt */) {
-    // this.logo.angle += 1;
+    this.data.logo.angle += this.data.rot_speed;
   }
 
   /**
