@@ -11,20 +11,25 @@ export default class Market extends Phaser.Scene {
       mosquito: 0,
       bee: 0,
     };
+    this.error = '';
     this.market = [
     {
       name: 'Mosquito',
+      frenchName: 'Moustique',
       price: 100,
       score: 10,
       delay: 1000,
-      posY: 0
+      posY: 0,
+      picture: 'mosquito.png'
     },
     {
       name: 'Bee',
+      frenchName: 'Abeille',
       price: 1000,
       score: 100,
       delay: 5000,
-      posY: 30
+      posY: 30,
+      picture: 'bee.png'
     }
     ]
   }
@@ -45,7 +50,7 @@ export default class Market extends Phaser.Scene {
    */
    preload() {
     this.load.image('flower', 'flower.jpg');
-    this.load.image('bee', 'splash-bee.png');
+    this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
   /**
@@ -54,12 +59,13 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   create(data) {
+  create(data) {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach(  ({ name, price, score, delay, posY }) => {
-      const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score, data);
+    this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
+    this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
+      const button = this.createButton(posY, frenchName);
+      this.setEventButton(button, price, delay, score, name, frenchName, data);
     });
   }
 
@@ -74,24 +80,24 @@ export default class Market extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-   update(/* t, dt */) {
+  update(/* t, dt */) {
 
-   }
+  }
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
-   render() {
-   }
+  render() {
+  }
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-   shutdown() {
-   }
+  shutdown() {
+  }
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -100,24 +106,47 @@ export default class Market extends Phaser.Scene {
    *
    *  @protected
    */
-   destroy() {
-   }
+  destroy() {
+  }
 
    createButton(posY, text){
     return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
   }
 
-  setEventButton(button, price, delay, score, data){
+  addError(frenchName) {
+    if(this.error !== '') {
+      this.error.destroy();
+      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
+      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+    } else {
+      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
+      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+    }
+
+  }
+
+  setEventButton(button, price, delay, score){
     button.setInteractive();
     button.on('pointerup', () => {
+      if(this.score < price) {
+        this.addError(frenchName);
+      } else {
       this.score -= price;
       this.registry.set('score', this.score);
       this.bonus.bee ++;
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score, data), callbackScope: this});
+      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+      this.addSprite(name);
+      }
     })
   }
 
-  updateCounter(number, data){
+  addSprite(picture){
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    this.add.sprite(x - 100, y - 100, picture);
+  }
+
+  updateCounter(number){
     this.score += number;
     this.registry.set('score', this.score);
   }
