@@ -41,6 +41,7 @@ export default class Title extends Phaser.Scene {
     })
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
+    const bg = this.add.image(x, y, 'bg');
     const logo = this.physics.add.image(x, y - 100, 'start_bee')
       .setVelocity(100, -100)
       .setBounce(1, 1)
