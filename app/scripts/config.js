@@ -103,7 +103,7 @@ export const physics = {
    */
   default: 'arcade',
   arcade: {
-    gravity: {y: 100}
+    gravity: {y: 3}
   }
 };
 

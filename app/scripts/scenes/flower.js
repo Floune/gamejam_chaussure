@@ -1,11 +1,11 @@
-export default class Title extends Phaser.Scene {
+export default class Flower extends Phaser.Scene {
   /**
    *  My custom scene.
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
-    super({key: 'Title'});
+  constructor() {
+    super({ key: "Flower" });
   }
 
   /**
@@ -14,16 +14,25 @@ export default class Title extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init(/* data */) {
-   }
+  init(data) {
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    this.data.score = 0;
+    this.data.scoreText = this.add.text(x, 10, "score: " + this.data.score, {
+      fontsize: "32px",
+      fill: "#FFF"
+    });
+  }
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
    *
    *  @protected
    */
-   preload() {
-   }
+  preload() {
+    this.load.image("flower", "flower3.png");
+    this.load.image("back", "layer07_Sky.png");
+  }
 
   /**
    *  Responsible for setting up game objects on the screen.
@@ -31,45 +40,17 @@ export default class Title extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   create(/* data */) {
-
+  create(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-
-    const music = this.sound.add('startup_sound');
-    const bg = this.add.image(x, y, 'bg1');
-    const logo = this.physics.add.image(x, y - 100, 'start_bee')
-    .setVelocity(100, -100)
-    .setBounce(1, 1)
-    .setCollideWorldBounds(true)
-
-    const titre = this.add.text(x, 80, 'Polliclicker', {
-      font: '80px Arial',
-      color: 'yellow',
-      stroke: 'black',
-      strokeThickness: 8
-    }); 
-    titre.setOrigin(0.5, 0.5);
-
-    const label = this.add.text(x, y, 'Pollinize All the things !', {
-      font: '60px Arial',
-      color: 'yellow',
-      stroke: 'black',
-      strokeThickness: 5
+    const image = this.add.sprite(x, y, "flower");
+    // this.add.image(x, y, "back");
+    image.on("pointerdown", () => {
+      this.data.score++;
+      console.log(this.data.score);
     });
-
-    music.play();
-
-    label
-      .setOrigin(0.5, 0.5)
-      .setInteractive();
-    label.alpha = 0.5;
-    label.on('pointerup', ()=> this.scene.start('Game'));
-    label.on('pointerover', () => {
-      label.setAlpha(1);
-    });
-    label.on('pointerout', () =>label.setAlpha(0.5));
-
+    image.setInteractive();
+    // this.add.image(x, y, "back");
   }
 
   /**
@@ -79,25 +60,31 @@ export default class Title extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-   update(/* t, dt */) {
+  update(data) {
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    const image = this.add.sprite(x, y, "flower");
 
-   }
+    image.on("pointerdown", () => {
+      this.data.score++;
+      console.log(this.data.score);
+    });
+    this.data.scoreText.setText("Score: " + this.data.score);
+  }
 
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
-   render() {
-   }
+  render() {}
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-   shutdown() {
-   }
+  shutdown() {}
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -106,6 +93,5 @@ export default class Title extends Phaser.Scene {
    *
    *  @protected
    */
-   destroy() {
-   }
- }
+  destroy() {}
+}
