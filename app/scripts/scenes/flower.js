@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class Flower extends Phaser.Scene {
   /**
    *  My custom scene.
@@ -5,7 +6,7 @@ export default class Flower extends Phaser.Scene {
    *  @extends Phaser.Scene
    */
   constructor() {
-    super({ key: "Flower" });
+    super();
   }
 
   /**
@@ -17,18 +18,15 @@ export default class Flower extends Phaser.Scene {
   init(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.data.score = 0;
-    this.data.scoreText = this.add.text(x, 10, "score: " + this.data.score, {
-      fontsize: "32px",
-      fill: "#FFF"
-    });
+    console.log(data.score);
   }
 
   /**
-   *  Used to declare game assets to be loaded using the loader plugin API.
+   *  Used to declare game assets tonpm start be loaded using the loader plugin API.
    *
    *  @protected
    */
+
   preload() {}
 
   /**
@@ -41,7 +39,7 @@ export default class Flower extends Phaser.Scene {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
 
-    const back_button = this.add.image(50, 660, "back").setScale(0.5, 0.5);
+    const back_button = this.add.image(50, 620, "back").setScale(0.5, 0.5);
     const pause_button = this.add.image(1000, 660, "pause").setScale(0.5, 0.5);
     const play_button = this.add.image(1110, 660, "play").setScale(0.5, 0.5);
 
@@ -76,6 +74,11 @@ export default class Flower extends Phaser.Scene {
     play_button.on("pointerout", () => play_button.setAlpha(0.6));
   }
 
+  handle(parent, key, data) {
+    console.log(parent, key, data);
+    console.log("prout");
+  }
+
   /**
    *  Handles updates to game logic, physics and game objects.
    *
@@ -92,7 +95,6 @@ export default class Flower extends Phaser.Scene {
       this.data.score++;
       console.log(this.data.score);
     });
-    this.data.scoreText.setText("Score: " + this.data.score);
   }
 
   /**
