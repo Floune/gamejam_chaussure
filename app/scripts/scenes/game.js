@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Logo from '@/objects/logo';
 
 export default class Game extends Phaser.Scene {

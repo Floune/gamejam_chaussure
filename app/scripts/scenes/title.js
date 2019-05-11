@@ -1,10 +1,11 @@
+/* eslint-disable */
 export default class Title extends Phaser.Scene {
   /**
    *  My custom scene.
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
+  constructor() {
     super({key: 'Title'});
   }
 
@@ -14,7 +15,7 @@ export default class Title extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init(data) {
+  init() {
     this.data.rot_speed = 0;
     this.data.music = this.sound.add('startup_sound');
     this.data.x = this.cameras.main.width / 2;

@@ -39,7 +39,7 @@ exports.extends = 'eslint:recommended';
 
 exports.rules = {
   // Indent code with 2 spaces
-  'indent': ['error', 2],
+  'indent': ['error', 1],
 
   // Prefer single quotes for strings and occasionally template literals
   'quotes': [

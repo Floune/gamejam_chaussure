@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class Logo extends Phaser.GameObjects.Sprite {
   /**
    *  A simple prefab (extended game object class), displaying a spinning

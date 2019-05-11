@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class Flower extends Phaser.Scene {
   /**
    *  My custom scene.
