@@ -32,9 +32,12 @@ export default class SplashScreen extends Phaser.Scene {
     //  Display cover and progress bar textures.
     this.showCover();
     this.showProgressBar();
+    this.load
+      .image('start_bee', 'splash-bee.png')
+      .image('red', 'red.png')
+      .image('bg', 'bg.png');
 
     //  HINT: Declare all game assets to be loaded here.
-    this.load.image('logo');
   }
 
   /**
