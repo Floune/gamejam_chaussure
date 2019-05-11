@@ -38,14 +38,19 @@ export default class Flower extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
    create(data) {
+    this.score = data.score;
+    console.log(this.score);
+
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const flower = this.add.sprite(x, y, "flower");
     const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
     flower.on("pointerdown", () => {
-      data.score++;
-      this.registry.set('score', data.score);
+      this.score++;
+      this.registry.set('score', this.score);
+      console.log(this.score);
     });
+    this.registry.events.on("changedata", this.handle, this);
     flower.setInteractive();
     back_button.setInteractive();
     back_button.alpha = 0.6;
@@ -55,7 +60,7 @@ export default class Flower extends Phaser.Scene {
   }
 
   handle(parent, key, data) {
-    console.log(parent, key, data);
+    this.score = data
   }
 
   /**
@@ -66,14 +71,7 @@ export default class Flower extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
    update(data) {
-    // const x = this.cameras.main.width / 2;
-    // const y = this.cameras.main.height / 2;
-    // const image = this.add.sprite(x, y, "flower");
 
-    // image.on("pointerdown", () => {
-    //   this.data.score++;
-    //   console.log(this.data.score);
-    // });
   }
 
   /**
