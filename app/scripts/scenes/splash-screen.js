@@ -8,17 +8,20 @@ export default class SplashScreen extends Phaser.Scene {
    */
   constructor() {
     super({
-      key: 'SplashScreen',
+      key: "SplashScreen",
 
       //  Splash screen and progress bar textures.
       pack: {
-        files: [{
-          key: 'splash-screen',
-          type: 'image'
-        }, {
-          key: 'progress-bar',
-          type: 'image'
-        }]
+        files: [
+          {
+            key: "splash-screen",
+            type: "image"
+          },
+          {
+            key: "progress-bar",
+            type: "image"
+          }
+        ]
       }
     });
   }
@@ -34,7 +37,7 @@ export default class SplashScreen extends Phaser.Scene {
     this.showProgressBar();
 
     //  HINT: Declare all game assets to be loaded here.
-    this.load.image('logo');
+    this.load.image("logo");
   }
 
   /**
@@ -45,7 +48,7 @@ export default class SplashScreen extends Phaser.Scene {
    */
   create() {
     //  We have nothing left to do here. Start the next scene.
-    this.scene.start('Game');
+    this.scene.start("Flower");
   }
 
   //  ------------------------------------------------------------------------
@@ -56,7 +59,7 @@ export default class SplashScreen extends Phaser.Scene {
    *  @private
    */
   showCover() {
-    this.add.image(0, 0, 'splash-screen').setOrigin(0);
+    this.add.image(0, 0, "splash-screen").setOrigin(0);
   }
 
   /**
@@ -66,13 +69,13 @@ export default class SplashScreen extends Phaser.Scene {
    */
   showProgressBar() {
     //  Get the progress bar filler texture dimensions.
-    const {width: w, height: h} = this.textures.get('progress-bar').get();
+    const { width: w, height: h } = this.textures.get("progress-bar").get();
 
     //  Place the filler over the progress bar of the splash screen.
-    const img = this.add.sprite(82, 282, 'progress-bar').setOrigin(0);
+    const img = this.add.sprite(82, 282, "progress-bar").setOrigin(0);
 
     //  Crop the filler along its width, proportional to the amount of files
     //  loaded.
-    this.load.on('progress', v => img.setCrop(0, 0, Math.ceil(v * w), h));
+    this.load.on("progress", v => img.setCrop(0, 0, Math.ceil(v * w), h));
   }
 }
