@@ -8,7 +8,7 @@ export default class Market extends Phaser.Scene {
   constructor() {
     super({key: 'Market'});
     this.bonus = {}
-    this.score = 100
+    this.score = 0;
   }
 
   /**
@@ -41,7 +41,7 @@ export default class Market extends Phaser.Scene {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const image = this.add.sprite(x, y, 'flower');
-    const button = this.add.text(this.cameras.main.width - 200, 0, "ACHETE MA MERDE !!!", {
+    const button = this.add.text(this.cameras.main.width - 200, 0, "Abeille", {
       font: '20px Arial',
       color: 'white',
     });
@@ -72,7 +72,9 @@ export default class Market extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
   update(/* t, dt */) {
-    this.timer.repeatCount;
+    if(this.bonus.bee > 0 ) {
+      this.timer.repeatCount;
+    }
   }
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
