@@ -1,4 +1,3 @@
-
 export default class Market extends Phaser.Scene {
   /**
    *  My custom scene.
@@ -11,7 +10,6 @@ export default class Market extends Phaser.Scene {
       mosquito: 0,
       bee: 0,
     };
-    this.score = 1000;
     this.market = [
       {
         name: 'Mosquito',
@@ -56,7 +54,7 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(data) {
-    this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
+    this.score = data.score;
     this.market.forEach(  ({ name, price, score, delay, posY }) => {
       const button = this.createButton(posY, name);
       this.setEventButton(button, price, delay, score);
@@ -107,15 +105,16 @@ export default class Market extends Phaser.Scene {
     button.setInteractive();
     button.on('pointerup', () => {
       this.score -= price;
-      this.scoreText.setText(`Score: ${this.score}`);
-      this.bonus.bee ++;
+      this.registry.set('score', this.score)
+      // this.scoreText.setText(`Score: ${this.score}`);
+      this.bonus.bee++;
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-      console.log(this.timer);
     })
   }
 
   updateCounter(number){
     this.score += number;
-    this.scoreText.setText(`Score: ${this.score}`);
+    this.registry.set('score', this.score);
+    //this.scoreText.setText(`Score: ${this.score}`);
   }
 }

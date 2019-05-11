@@ -22,12 +22,11 @@ export default class Game extends Phaser.Scene {
    *  @param {object} data Initialization parameters.
    */
   create(/* data */) {
-    let score = 0;
     this.registry.events.on("changedata", this.handle, this);
-    //  TODO: Replace this content with really cool game code here :)
-    this.data.prout = 'prout';
-    this.scene.add("Flower",Flower, true, {prout: this.data.prout});
-    this.scene.add("Market",Market, true, {x: 0, y: 0});
+    this.text = this.add.text(0, 0, "Je suis là")
+    this.text.setDepth(1);
+    this.scene.add("Flower",Flower, true);
+    this.scene.add("Market",Market, true, {score: this.score});
   }
 
   handle(parent, key, data) {
@@ -43,6 +42,10 @@ export default class Game extends Phaser.Scene {
    *  @param {number} dt Time elapsed since last update.
    */
   update(/* t, dt */) {
+
+  }
+
+  render(){
 
   }
 }
