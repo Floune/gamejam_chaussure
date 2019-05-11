@@ -7,6 +7,8 @@ export default class Market extends Phaser.Scene {
    */
   constructor() {
     super({key: 'Market'});
+    this.bonus = {}
+    this.score = 100
   }
 
   /**
@@ -16,8 +18,6 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   init(data) {
-    data.score = 100;
-    data.scoreText = this.add.text(0,0, `score: ${data.score}`, {fontsize: '32px', fill: "#FFF"});
   }
 
   /**
@@ -37,6 +37,7 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(data) {
+    this.scoreText = this.add.text(0,0, `score: ${this.score}`, {fontsize: '32px', fill: "#FFF"});
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const image = this.add.sprite(x, y, 'flower');
@@ -49,15 +50,18 @@ export default class Market extends Phaser.Scene {
     .setInteractive()
 
     button.on('pointerup', () => {
-      data.score--
-      data.scoreText.setText(`Score: ${data.score}`)
+      this.score--
+      this.scoreText.setText(`Score: ${this.score}`)
+      this.bonus.bee = 1;
       this.add.sprite(x - 100, y - 100, 'bee');
+      console.log(this.bonus)
     })
     image.setInteractive();
     image.on('pointerup', () => {
-      data.score++
-      data.scoreText.setText(`Score: ${data.score}`)
+      this.score++
+      this.scoreText.setText(`Score: ${this.score}`)
     });
+    this.timer = this.time.addEvent({delay: 1000, loop: true, callback: this.updateCounter, callbackScope: this});
   }
 
   /**
@@ -68,8 +72,8 @@ export default class Market extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
   update(/* t, dt */) {
+    this.timer.repeatCount;
   }
-
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
@@ -96,4 +100,8 @@ export default class Market extends Phaser.Scene {
   destroy() {
   }
 
+  updateCounter(){
+    this.score++;
+    this.scoreText.setText(`Score: ${this.score}`);
+  }
 }
