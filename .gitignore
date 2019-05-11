@@ -1,2 +1,14 @@
-node_modules
+.*
+*.log
+Thumbs.db
+
+dist/
+build/
+node_modules/
 .idea/
+
+!.git*
+!.babelrc
+!.eslint*
+!.yo-rc.json
+!.editorconfig
