@@ -43,17 +43,18 @@ export default class Market extends Phaser.Scene {
       font: '20px Arial',
       color: 'white',
     });
-    
+
     button.setOrigin(0, 0)
     .setInteractive()
 
     button.on('pointerup', () => {
       data.score--
+      data.scoreText.setText(`Score: ${data.score}`)
     })
     image.setInteractive();
     image.on('pointerup', () => {
       data.score++
-      console.log(data.score);
+      data.scoreText.setText(`Score: ${data.score}`)
     });
   }
 
