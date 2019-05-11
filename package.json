@@ -8,7 +8,8 @@
     "dist": "gulp dist",
     "format": "eslint \"app/scripts/**/*.js\" --fix",
     "lint": "eslint \"app/scripts/**/*.js\"",
-    "start": "gulp"
+    "start": "gulp",
+    "heroku-postbuild": "npm install && npm run dist"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
