@@ -7,8 +7,27 @@ export default class Market extends Phaser.Scene {
    */
   constructor() {
     super({key: 'Market'});
-    this.bonus = {}
-    this.score = 0;
+    this.bonus = {
+      mosquito: 0,
+      bee: 0,
+    };
+    this.score = 1000;
+    this.market = [
+      {
+        name: 'Mosquito',
+        price: 100,
+        score: 10,
+        delay: 1000,
+        posY: 0
+      },
+      {
+        name: 'Bee',
+        price: 1000,
+        score: 100,
+        delay: 5000,
+        posY: 30
+      }
+    ]
   }
 
   /**
@@ -37,29 +56,10 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(data) {
-    this.scoreText = this.add.text(0,0, `score: ${this.score}`, {fontsize: '32px', fill: "#FFF"});
-    const x = this.cameras.main.width / 2;
-    const y = this.cameras.main.height / 2;
-    const image = this.add.sprite(x, y, 'flower');
-    const button = this.add.text(this.cameras.main.width - 200, 0, "Abeille", {
-      font: '20px Arial',
-      color: 'white',
-    });
-
-    button.setOrigin(0, 0)
-    .setInteractive()
-
-    button.on('pointerup', () => {
-        this.score--
-        this.scoreText.setText(`Score: ${this.score}`)
-        this.bonus.bee = 1;
-        this.add.sprite(x - 100, y - 100, 'bee');
-        this.timer = this.time.addEvent({delay: 1000, loop: true, callback: this.updateCounter, callbackScope: this});
-    })
-    image.setInteractive();
-    image.on('pointerup', () => {
-      this.score++
-      this.scoreText.setText(`Score: ${this.score}`)
+    this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
+    this.market.forEach(  ({ name, price, score, delay, posY }) => {
+      const button = this.createButton(posY, name);
+      this.setEventButton(button, price, delay, score);
     });
   }
 
@@ -71,9 +71,7 @@ export default class Market extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
   update(/* t, dt */) {
-    if(this.bonus.bee > 0 && this.bonus.bee !== undefined) {
-      this.timer.repeatCount;
-    }
+
   }
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
@@ -101,8 +99,23 @@ export default class Market extends Phaser.Scene {
   destroy() {
   }
 
-  updateCounter(){
-    this.score++;
+  createButton(posY, text){
+    return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
+  }
+
+  setEventButton(button, price, delay, score){
+    button.setInteractive();
+    button.on('pointerup', () => {
+      this.score -= price;
+      this.scoreText.setText(`Score: ${this.score}`);
+      this.bonus.bee ++;
+      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+      console.log(this.timer);
+    })
+  }
+
+  updateCounter(number){
+    this.score += number;
     this.scoreText.setText(`Score: ${this.score}`);
   }
 }
