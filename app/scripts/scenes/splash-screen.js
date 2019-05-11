@@ -38,16 +38,11 @@ export default class SplashScreen extends Phaser.Scene {
     this.load
       .image('start_bee', 'splash-bee.png')
       .image('red', 'red.png')
-      .image('bg', 'bg.jpg')
       .image('bg1', 'bg1.jpg')
       .image("start_bee", "splash-bee.png")
       .image("red", "red.png")
-      .image("bg", "bg.png");
+      .image("play", "PNG/btn/play.png");
     this.load.audio('startup_sound', 'Bee-noise.mp3');
-
-    =======
-
-    >>>>>>> origin/oceane
 
     //  HINT: Declare all game assets to be loaded here.
   }
@@ -60,7 +55,7 @@ export default class SplashScreen extends Phaser.Scene {
    */
    create() {
     //  We have nothing left to do here. Start the next scene.
-    this.scene.start("Flower");
+    this.scene.start("Title");
   }
 
   //  ------------------------------------------------------------------------

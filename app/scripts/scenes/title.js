@@ -38,10 +38,11 @@ export default class Title extends Phaser.Scene {
 
     const music = this.sound.add('startup_sound');
     const bg = this.add.image(x, y, 'bg1');
+    const play_button = this.add.image(x, y, 'play').setInteractive();
     const logo = this.physics.add.image(x, y - 100, 'start_bee')
     .setVelocity(100, -100)
     .setBounce(1, 1)
-    .setCollideWorldBounds(true)
+    .setCollideWorldBounds(true);
 
     const titre = this.add.text(x, 80, 'Polliclicker', {
       font: '80px Arial',
@@ -51,7 +52,7 @@ export default class Title extends Phaser.Scene {
     }); 
     titre.setOrigin(0.5, 0.5);
 
-    const label = this.add.text(x, y, 'Pollinize All the things !', {
+    const label = this.add.text(x, 200, 'Pollinize All the things !', {
       font: '60px Arial',
       color: 'yellow',
       stroke: 'black',
@@ -63,8 +64,14 @@ export default class Title extends Phaser.Scene {
     label
       .setOrigin(0.5, 0.5)
       .setInteractive();
-    label.alpha = 0.5;
-    label.on('pointerup', ()=> this.scene.start('Game'));
+
+    play_button.alpha = 0.6;
+
+    play_button.on('pointerover', () => { play_button.setAlpha(1) });
+    play_button.on('pointerout', () => play_button.setAlpha(0.6));
+    play_button.on('pointerup', () => this.scene.start('Flower'));
+    label.on('pointerup', ()=> this.scene.start('Flower'));
+
     label.on('pointerover', () => {
       label.setAlpha(1);
     });
