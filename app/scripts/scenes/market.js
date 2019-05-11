@@ -18,14 +18,16 @@ export default class Market extends Phaser.Scene {
         price: 100,
         score: 10,
         delay: 1000,
-        posY: 0
+        posY: 0,
+        picture: 'mosquito.png'
       },
       {
         name: 'Bee',
         price: 1000,
         score: 100,
         delay: 5000,
-        posY: 30
+        posY: 30,
+        picture: 'bee.png'
       }
     ]
   }
@@ -46,7 +48,8 @@ export default class Market extends Phaser.Scene {
    */
   preload() {
     this.load.image('flower', 'flower.jpg');
-    this.load.image('bee', 'splash-bee.png');
+    this.load.image('Bee', 'bee.png');
+    this.load.image('Mosquito', 'mosquito.png');
   }
 
   /**
@@ -57,9 +60,9 @@ export default class Market extends Phaser.Scene {
    */
   create(data) {
     this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
-    this.market.forEach(  ({ name, price, score, delay, posY }) => {
+    this.market.forEach(  ({ name, price, score, delay, posY,}) => {
       const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score);
+      this.setEventButton(button, price, delay, score, name);
     });
   }
 
@@ -103,15 +106,22 @@ export default class Market extends Phaser.Scene {
     return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
   }
 
-  setEventButton(button, price, delay, score){
+  setEventButton(button, price, delay, score, name){
     button.setInteractive();
     button.on('pointerup', () => {
       this.score -= price;
       this.scoreText.setText(`Score: ${this.score}`);
       this.bonus.bee ++;
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-      console.log(this.timer);
+      this.addSprite(name);
     })
+  }
+
+  addSprite(picture){
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    console.log(picture);
+    this.add.sprite(x - 100, y - 100, picture);
   }
 
   updateCounter(number){
