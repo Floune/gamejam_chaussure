@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Floune/gamejam_chaussure#readme",
   "dependencies": {
-    "phaser": "^3.16.2"
+    "phaser": "^3.16.2",
+    "watchify": "^3.11.1"
   }
 }
