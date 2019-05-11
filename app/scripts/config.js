@@ -101,7 +101,10 @@ export const physics = {
   /**
    *  Enable a physics engine by default on all game scenes.
    */
-  default: false
+  default: 'arcade',
+  arcade: {
+    gravity: {y: 200}
+  }
 };
 
 /**
