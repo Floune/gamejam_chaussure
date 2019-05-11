@@ -6,7 +6,8 @@ export default class Flower extends Phaser.Scene {
    *  @extends Phaser.Scene
    */
   constructor() {
-    super({ key: "Flower" });
+    super();
+    
   }
 
   /**

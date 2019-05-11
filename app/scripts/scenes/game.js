@@ -1,5 +1,7 @@
 /* eslint-disable */
 import Logo from '@/objects/logo';
+import Market from "./market";
+import Flower from "./flower";
 
 export default class Game extends Phaser.Scene {
   /**
@@ -20,7 +22,8 @@ export default class Game extends Phaser.Scene {
    */
   create(/* data */) {
     //  TODO: Replace this content with really cool game code here :)
-
+    this.scene.add("Flower",Flower, true);
+    this.scene.add("Market",Market, true, {x: 0, y: 0});
   }
 
   /**

@@ -74,7 +74,7 @@ export default class Title extends Phaser.Scene {
     this.data.play_button.on('pointerover', () => { this.data.play_button.setAlpha(1); });
     this.data.play_button.on('pointerout', () => this.data.play_button.setAlpha(0.6));
     this.data.play_button.on('pointerup', () => { 
-      this.scene.start('Flower');
+      this.scene.start('Game');
       this.data.music.stop();
     });
 
