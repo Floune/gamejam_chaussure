@@ -9,9 +9,10 @@ export default class Game extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-  constructor() {
+   constructor() {
     super({key: 'Game'});
     this.score = 0;
+
   }
 
   /**
@@ -21,17 +22,22 @@ export default class Game extends Phaser.Scene {
    *  @protected
    *  @param {object} data Initialization parameters.
    */
-  create(/* data */) {
-    let score = 0;
+   create(/* data */) {
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    this.add.image(x, y, "background").setDepth(-1);
     this.registry.events.on("changedata", this.handle, this);
-    //  TODO: Replace this content with really cool game code here :)
     this.data.prout = 'prout';
-    this.scene.add("Flower",Flower, true, {prout: this.data.prout});
+    this.scene.add("Flower",Flower, true, {score: this.score});
     this.scene.add("Market",Market, true, {x: 0, y: 0});
+    this.data.scoreText = this.add.text(x, 20, "scoreE: " + this.score, {
+      fontsize: "32px",
+      fill: "#FFF"
+    }).setDepth(1);
   }
 
   handle(parent, key, data) {
-    console.log(data);
+    this.score = data
     console.log('qsdqdqd');
   }
   /**
@@ -42,7 +48,11 @@ export default class Game extends Phaser.Scene {
    *  @param {number} t Current internal clock time.
    *  @param {number} dt Time elapsed since last update.
    */
-  update(/* t, dt */) {
 
+  render() {
+    this.data.scoreText.bringToFront();
+  }
+  update(/* t, dt */) {
+    this.data.scoreText.setText("Score: " + this.score);
   }
 }

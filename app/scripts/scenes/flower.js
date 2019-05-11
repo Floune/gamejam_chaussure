@@ -17,14 +17,10 @@ export default class Flower extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
    init(data) {
-    console.log(data);
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.data.score = 0;
-    this.data.scoreText = this.add.text(x, 10, "score: " + this.data.score, {
-      fontsize: "32px",
-      fill: "#FFF"
-    });
+    console.log(data.score);
+
   }
 
   /**
@@ -34,7 +30,6 @@ export default class Flower extends Phaser.Scene {
    */
    preload() {
     this.load.image("flower", "flower3.png");
-    this.load.image("background", "layer07_Sky.png");
   }
 
   /**
@@ -49,13 +44,11 @@ export default class Flower extends Phaser.Scene {
     const flower = this.add.sprite(x, y, "flower");
     const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
     flower.on("pointerdown", () => {
-      this.data.score++;
-      this.registry.set('score', this.data.score);
-      //console.log(this.data.score);
+      data.score++;
+      this.registry.set('score', data.score);
     });
     flower.setInteractive();
     back_button.setInteractive();
-    this.add.image(x, y, "background").setDepth(-1);
     back_button.alpha = 0.6;
     back_button.on("pointerup", () => this.scene.start("Title"));
     back_button.on("pointerover", () => back_button.setAlpha(1));
@@ -83,7 +76,6 @@ export default class Flower extends Phaser.Scene {
       this.data.score++;
       console.log(this.data.score);
     });
-    this.data.scoreText.setText("Score: " + this.data.score);
   }
 
   /**
