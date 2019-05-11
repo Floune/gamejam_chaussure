@@ -62,10 +62,9 @@ export default class Market extends Phaser.Scene {
   create(data) {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
     this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
       const button = this.createButton(posY, frenchName);
-      this.setEventButton(button, price, delay, score, name, frenchName, data);
+      this.setEventButton(button, price, delay, score, name, frenchName);
     });
   }
 
@@ -125,7 +124,7 @@ export default class Market extends Phaser.Scene {
 
   }
 
-  setEventButton(button, price, delay, score){
+  setEventButton(button, price, delay, score, name, frenchName){
     button.setInteractive();
     button.on('pointerup', () => {
       if(this.score < price) {

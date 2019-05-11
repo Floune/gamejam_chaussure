@@ -39,24 +39,16 @@ export default class Flower extends Phaser.Scene {
    */
    create(data) {
     this.score = data.score;
-    console.log(this.score);
 
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const flower = this.add.sprite(x, y, "flower");
-    const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
     flower.on("pointerdown", () => {
       this.score++;
       this.registry.set('score', this.score);
-      console.log(this.score);
     });
     this.registry.events.on("changedata", this.handle, this);
     flower.setInteractive();
-    back_button.setInteractive();
-    back_button.alpha = 0.6;
-    back_button.on("pointerup", () => this.scene.start("Title"));
-    back_button.on("pointerover", () => back_button.setAlpha(1));
-    back_button.on("pointerout", () => back_button.setAlpha(0.6));
   }
 
   handle(parent, key, data) {

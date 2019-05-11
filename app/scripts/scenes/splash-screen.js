@@ -37,7 +37,7 @@ export default class SplashScreen extends Phaser.Scene {
     this.showCover();
     this.showProgressBar();
     this.load
-      .image("start_bee", "splash-bee.png")
+      .image("start_bee", "bee.png")
       .image("red", "red.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
