@@ -5,9 +5,9 @@ export default class Flower extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-  constructor() {
+   constructor() {
     super();
-    
+
   }
 
   /**
@@ -16,7 +16,8 @@ export default class Flower extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  init(data) {
+   init(data) {
+    console.log(data);
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     this.data.score = 0;
@@ -31,7 +32,7 @@ export default class Flower extends Phaser.Scene {
    *
    *  @protected
    */
-  preload() {
+   preload() {
     this.load.image("flower", "flower3.png");
     this.load.image("back", "layer07_Sky.png");
   }
@@ -42,17 +43,23 @@ export default class Flower extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  create(data) {
+   create(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const image = this.add.sprite(x, y, "flower");
     // this.add.image(x, y, "back");
     image.on("pointerdown", () => {
       this.data.score++;
-      console.log(this.data.score);
+      this.registry.set('score', this.data.score);
+      //console.log(this.data.score);
     });
     image.setInteractive();
     // this.add.image(x, y, "back");
+  }
+
+  handle(parent, key, data) {
+    console.log(parent, key, data);
+    console.log('prout');
   }
 
   /**
@@ -62,7 +69,7 @@ export default class Flower extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-  update(data) {
+   update(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const image = this.add.sprite(x, y, "flower");
@@ -79,14 +86,14 @@ export default class Flower extends Phaser.Scene {
    *
    *  @protected
    */
-  render() {}
+   render() {}
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-  shutdown() {}
+   shutdown() {}
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -95,5 +102,5 @@ export default class Flower extends Phaser.Scene {
    *
    *  @protected
    */
-  destroy() {}
-}
+   destroy() {}
+ }

@@ -11,6 +11,7 @@ export default class Game extends Phaser.Scene {
    */
   constructor() {
     super({key: 'Game'});
+    this.score = 0;
   }
 
   /**
@@ -21,11 +22,18 @@ export default class Game extends Phaser.Scene {
    *  @param {object} data Initialization parameters.
    */
   create(/* data */) {
+    let score = 0;
+    this.registry.events.on("changedata", this.handle, this);
     //  TODO: Replace this content with really cool game code here :)
-    this.scene.add("Flower",Flower, true);
+    this.data.prout = 'prout';
+    this.scene.add("Flower",Flower, true, {prout: this.data.prout});
     this.scene.add("Market",Market, true, {x: 0, y: 0});
   }
 
+  handle(parent, key, data) {
+    console.log(data);
+    console.log('qsdqdqd');
+  }
   /**
    *  Called when a scene is updated. Updates to game logic, physics and game
    *  objects are handled here.
