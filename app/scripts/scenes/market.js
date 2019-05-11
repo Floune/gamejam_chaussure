@@ -1,3 +1,4 @@
+
 export default class Market extends Phaser.Scene {
   /**
    *  My custom scene.
@@ -14,7 +15,9 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  init(/* data */) {
+  init(data) {
+    data.score = 0;
+    data.scoreText = this.add.text(0,0, "score: 0", {fontsize: '32px', fill: "#FFF"});
   }
 
   /**
@@ -23,6 +26,7 @@ export default class Market extends Phaser.Scene {
    *  @protected
    */
   preload() {
+    this.load.image('flower', 'flower.jpg');
   }
 
   /**
@@ -31,7 +35,16 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  create(/* data */) {
+  create(data) {
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    const image = this.add.sprite(x, y, 'flower');
+    image.setInteractive();
+
+    image.on('pointerup', () => {
+      data.score++
+      console.log(data.score);
+    });
   }
 
   /**
@@ -69,4 +82,5 @@ export default class Market extends Phaser.Scene {
    */
   destroy() {
   }
+
 }
