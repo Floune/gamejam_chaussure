@@ -27,7 +27,6 @@ export default class Game extends Phaser.Scene {
     const y = this.cameras.main.height / 2;
     this.add.image(x, y, "background").setDepth(-1);
     this.registry.events.on("changedata", this.handle, this);
-    this.data.prout = 'prout';
     this.scene.add("Flower",Flower, true, {score: this.score});
     this.scene.add("Market",Market, true, {score: this.score});
     this.data.scoreText = this.add.text(x, 20, "scoreE: " + this.score, {
@@ -38,7 +37,6 @@ export default class Game extends Phaser.Scene {
 
   handle(parent, key, data) {
     this.score = data
-    console.log('qsdqdqd');
   }
   /**
    *  Called when a scene is updated. Updates to game logic, physics and game
@@ -50,7 +48,6 @@ export default class Game extends Phaser.Scene {
    */
 
   render() {
-    this.data.scoreText.bringToFront();
   }
   update(/* t, dt */) {
     this.data.scoreText.setText("Score: " + this.score);

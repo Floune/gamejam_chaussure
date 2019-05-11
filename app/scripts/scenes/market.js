@@ -11,7 +11,6 @@ export default class Market extends Phaser.Scene {
       mosquito: 0,
       bee: 0,
     };
-    this.score = 1000;
     this.market = [
       {
         name: 'Mosquito',
@@ -56,10 +55,9 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
   create(data) {
-    this.scoreText = this.add.text(0, 0, `Score: ${this.score}`);
     this.market.forEach(  ({ name, price, score, delay, posY }) => {
       const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score);
+      this.setEventButton(button, price, delay, score, data);
     });
   }
 
@@ -103,19 +101,19 @@ export default class Market extends Phaser.Scene {
     return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
   }
 
-  setEventButton(button, price, delay, score){
+  setEventButton(button, price, delay, score, data){
+    console.log(data.score);
     button.setInteractive();
     button.on('pointerup', () => {
-      this.score -= price;
-      this.scoreText.setText(`Score: ${this.score}`);
+      data.score -= price;
       this.bonus.bee ++;
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score, data), callbackScope: this});
       console.log(this.timer);
     })
   }
 
-  updateCounter(number){
-    this.score += number;
-    this.scoreText.setText(`Score: ${this.score}`);
+  updateCounter(number, data){
+    data.score += number;
+    this.registry.set('score', data.score);
   }
 }

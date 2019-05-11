@@ -19,7 +19,6 @@ export default class Flower extends Phaser.Scene {
    init(data) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    console.log(data.score);
 
   }
 
@@ -57,7 +56,6 @@ export default class Flower extends Phaser.Scene {
 
   handle(parent, key, data) {
     console.log(parent, key, data);
-    console.log('prout');
   }
 
   /**
@@ -68,14 +66,14 @@ export default class Flower extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
    update(data) {
-    const x = this.cameras.main.width / 2;
-    const y = this.cameras.main.height / 2;
-    const image = this.add.sprite(x, y, "flower");
+    // const x = this.cameras.main.width / 2;
+    // const y = this.cameras.main.height / 2;
+    // const image = this.add.sprite(x, y, "flower");
 
-    image.on("pointerdown", () => {
-      this.data.score++;
-      console.log(this.data.score);
-    });
+    // image.on("pointerdown", () => {
+    //   this.data.score++;
+    //   console.log(this.data.score);
+    // });
   }
 
   /**
