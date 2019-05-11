@@ -41,7 +41,7 @@ export default class SplashScreen extends Phaser.Scene {
       .image("red", "red.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
-      .image("minus", "PNG/settings/98.png");
+      .image("minus", "PNG/settings/98.png")
       .image("bg1", "bg1.jpg")
       .image("back", "PNG/btn/prew.png");
     this.load.audio("startup_sound", "Bee-noise.mp3");
