@@ -5,8 +5,9 @@ export default class Market extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
-    super({key: 'Market'});
+
+  constructor() {
+    super();
     this.bonus = {
       mosquito: 0,
       bee: 0,

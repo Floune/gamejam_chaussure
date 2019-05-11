@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  *  `config` module
  *  ===============
@@ -103,7 +104,7 @@ export const physics = {
    */
   default: 'arcade',
   arcade: {
-    gravity: {y: 200}
+    gravity: {y: 3}
   }
 };
 
@@ -114,6 +115,10 @@ export const loader = {
   //  HINT: Put all your game assets in the `app/static/assets/` directory.
   path: 'assets/'
 };
+
+export const audio = {
+  disableWebAudio: true
+}
 
 /**
  *  Declare custom Phaser plugins.

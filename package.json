@@ -8,6 +8,7 @@
     "dist": "gulp dist",
     "format": "eslint \"app/scripts/**/*.js\" --fix",
     "lint": "eslint \"app/scripts/**/*.js\"",
+    "heroku-postbuild": "npm install && npm run dist",
     "start": "gulp"
   },
   "devDependencies": {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
  *  scenes `index` module
  *  =====================
@@ -6,7 +7,9 @@
  *  Expose the required game scenes using this module.
  */
 
-export {default as SplashScreen} from './splash-screen';
-export {default as Game} from './game';
-export {default as Market} from './market';
-export {default as Title} from './title';
+export { default as SplashScreen } from "./splash-screen";
+export { default as Game } from "./game";
+export { default as Title } from "./title";
+//export { default as Flower } from "./flower";
+//export { default as Market} from './market';
+

@@ -1,10 +1,11 @@
+/* eslint-disable */
 export default class Title extends Phaser.Scene {
   /**
    *  My custom scene.
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
+  constructor() {
     super({key: 'Title'});
   }
 
@@ -14,8 +15,36 @@ export default class Title extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init(/* data */) {
-   }
+  init() {
+    this.data.rot_speed = 0;
+    this.data.music = this.sound.add('startup_sound');
+    this.data.x = this.cameras.main.width / 2;
+    this.data.y = this.cameras.main.height / 2;
+    this.data.bg = this.add.image(this.data.x, this.data.y, 'bg1');
+    this.data.play_button = this.add.image(this.data.x, this.data.y, 'play').setInteractive();
+    this.data.logo = this.physics.add.image(this.data.x, this.data.y - 100, 'start_bee')
+    .setVelocity(100, -100)
+    .setBounce(1, 1)
+    .setCollideWorldBounds(true);
+
+    this.data.titre = this.add.text(this.data.x, 80, 'Polliclicker', {
+      font: '80px Arial',
+      color: 'yellow',
+      stroke: 'black',
+      strokeThickness: 8
+    }).setOrigin(0.5, 0.5);
+    
+    this.data.label = this.add.text(this.data.x, 200, 'Pollinize All the things !', {
+      font: '60px Arial',
+      color: 'yellow',
+      stroke: 'black',
+      strokeThickness: 5
+    })      
+      .setOrigin(0.5, 0.5)
+      .setInteractive();
+    this.data.plus_button = this.add.image(1030, 650, 'plus').setInteractive();
+    this.data.minus_button = this.add.image(1150, 650, 'minus').setInteractive();
+  }
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
@@ -23,7 +52,7 @@ export default class Title extends Phaser.Scene {
    *  @protected
    */
    preload() {
-  }
+   }
 
   /**
    *  Responsible for setting up game objects on the screen.
@@ -33,32 +62,24 @@ export default class Title extends Phaser.Scene {
    */
    create(/* data */) {
 
-    const particule = this.add.particles('red');
-    const flame = particule.createEmitter({
-      speed: 100,
-      scale: { start: 1, end: 0 },
-      blendMode: 'ADD'
-    })
-    const x = this.cameras.main.width / 2;
-    const y = this.cameras.main.height / 2;
-    const bg = this.add.image(x, y, 'bg');
-    const logo = this.physics.add.image(x, y - 100, 'start_bee')
-      .setVelocity(100, -100)
-      .setBounce(1, 1)
-      .setCollideWorldBounds(true)
-    flame.startFollow(logo);
+    this.data.music.play();
+    this.data.label
 
-    const label = this.add.text(300, 400, 'Pollinize All the things !', {
-      font: '50px Arial',
-      color: 'yellow',
-      stroke: 'yellow',
-      strokeThickness: 6
+    this.data.label.on('pointerover', () => {this.data.label.setAlpha(1)})
+    this.data.label.on('pointerout', () => this.data.label.setAlpha(0.5))
+    this.data.label.on('pointerdown', () => this.data.rot_speed += 1)
+
+    this.data.play_button.alpha = 0.6;
+
+    this.data.play_button.on('pointerover', () => { this.data.play_button.setAlpha(1); });
+    this.data.play_button.on('pointerout', () => this.data.play_button.setAlpha(0.6));
+    this.data.play_button.on('pointerup', () => { 
+      this.scene.start('Game');
+      this.data.music.stop();
     });
 
-    label
-      .setOrigin(0.5, 0.5)
-      .setInteractive();
-    label.on('pointerup', ()=> this.scene.start('Game'));
+    this.data.plus_button.on('pointerdown', () => { this.data.rot_speed += 1})
+    this.data.minus_button.on('pointerdown', () => { this.data.rot_speed -= 1})
 
   }
 
@@ -70,8 +91,8 @@ export default class Title extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
    update(/* t, dt */) {
-
-   }
+    this.data.logo.angle += this.data.rot_speed;
+  }
 
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.

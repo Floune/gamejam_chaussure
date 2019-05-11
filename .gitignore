@@ -12,3 +12,5 @@ node_modules/
 !.eslint*
 !.yo-rc.json
 !.editorconfig
+package-lock.json
+

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default class SplashScreen extends Phaser.Scene {
   /**
    *  Takes care of loading the main game assets, including textures, tile
@@ -8,17 +9,20 @@ export default class SplashScreen extends Phaser.Scene {
    */
   constructor() {
     super({
-      key: 'SplashScreen',
+      key: "SplashScreen",
 
       //  Splash screen and progress bar textures.
       pack: {
-        files: [{
-          key: 'splash-screen',
-          type: 'image'
-        }, {
-          key: 'progress-bar',
-          type: 'image'
-        }]
+        files: [
+          {
+            key: "splash-screen",
+            type: "image"
+          },
+          {
+            key: "progress-bar",
+            type: "image"
+          }
+        ]
       }
     });
   }
@@ -33,9 +37,16 @@ export default class SplashScreen extends Phaser.Scene {
     this.showCover();
     this.showProgressBar();
     this.load
-      .image('start_bee', 'splash-bee.png')
-      .image('red', 'red.png')
-      .image('bg', 'bg.png');
+      .image("start_bee", "splash-bee.png")
+      .image("red", "red.png")
+      .image("play", "PNG/btn/play.png")
+      .image("plus", "PNG/settings/97.png")
+      .image("minus", "PNG/settings/98.png")
+      .image("bg1", "bg1.jpg")
+      .image("back", "PNG/btn/prew.png")
+      .image("background", "layer07_Sky.png");
+
+    this.load.audio("startup_sound", "Bee-noise.mp3");
 
     //  HINT: Declare all game assets to be loaded here.
   }
@@ -48,7 +59,8 @@ export default class SplashScreen extends Phaser.Scene {
    */
   create() {
     //  We have nothing left to do here. Start the next scene.
-    this.scene.start('Market');
+    this.scene.start("Title");
+
   }
 
   //  ------------------------------------------------------------------------
@@ -59,7 +71,7 @@ export default class SplashScreen extends Phaser.Scene {
    *  @private
    */
   showCover() {
-    this.add.image(0, 0, 'splash-screen').setOrigin(0);
+    this.add.image(0, 0, "splash-screen").setOrigin(0);
   }
 
   /**
@@ -69,13 +81,13 @@ export default class SplashScreen extends Phaser.Scene {
    */
   showProgressBar() {
     //  Get the progress bar filler texture dimensions.
-    const {width: w, height: h} = this.textures.get('progress-bar').get();
+    const { width: w, height: h } = this.textures.get("progress-bar").get();
 
     //  Place the filler over the progress bar of the splash screen.
-    const img = this.add.sprite(82, 282, 'progress-bar').setOrigin(0);
+    const img = this.add.sprite(82, 282, "progress-bar").setOrigin(0);
 
     //  Crop the filler along its width, proportional to the amount of files
     //  loaded.
-    this.load.on('progress', v => img.setCrop(0, 0, Math.ceil(v * w), h));
+    this.load.on("progress", v => img.setCrop(0, 0, Math.ceil(v * w), h));
   }
 }

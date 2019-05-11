@@ -1,4 +1,7 @@
+/* eslint-disable */
 import Logo from '@/objects/logo';
+import Market from "./market";
+import Flower from "./flower";
 
 export default class Game extends Phaser.Scene {
   /**
@@ -6,8 +9,10 @@ export default class Game extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-  constructor() {
+   constructor() {
     super({key: 'Game'});
+    this.score = 0;
+
   }
 
   /**
@@ -17,11 +22,24 @@ export default class Game extends Phaser.Scene {
    *  @protected
    *  @param {object} data Initialization parameters.
    */
-  create(/* data */) {
-    //  TODO: Replace this content with really cool game code here :)
-    this.logo = this.add.existing(new Logo(this));
+   create(/* data */) {
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    this.add.image(x, y, "background").setDepth(-1);
+    this.registry.events.on("changedata", this.handle, this);
+    this.data.prout = 'prout';
+    this.scene.add("Flower",Flower, true, {score: this.score});
+    this.scene.add("Market",Market, true, {x: 0, y: 0});
+    this.data.scoreText = this.add.text(x, 20, "scoreE: " + this.score, {
+      fontsize: "32px",
+      fill: "#FFF"
+    }).setDepth(1);
   }
 
+  handle(parent, key, data) {
+    this.score = data
+    console.log('qsdqdqd');
+  }
   /**
    *  Called when a scene is updated. Updates to game logic, physics and game
    *  objects are handled here.
@@ -30,7 +48,11 @@ export default class Game extends Phaser.Scene {
    *  @param {number} t Current internal clock time.
    *  @param {number} dt Time elapsed since last update.
    */
+
+  render() {
+    this.data.scoreText.bringToFront();
+  }
   update(/* t, dt */) {
-    this.logo.update();
+    this.data.scoreText.setText("Score: " + this.score);
   }
 }
