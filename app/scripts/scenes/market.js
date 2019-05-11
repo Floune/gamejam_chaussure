@@ -27,6 +27,7 @@ export default class Market extends Phaser.Scene {
    */
   preload() {
     this.load.image('flower', 'flower.jpg');
+    this.load.image('bee', 'splash-bee.png');
   }
 
   /**
@@ -50,6 +51,7 @@ export default class Market extends Phaser.Scene {
     button.on('pointerup', () => {
       data.score--
       data.scoreText.setText(`Score: ${data.score}`)
+      this.add.sprite(x - 100, y - 100, 'bee');
     })
     image.setInteractive();
     image.on('pointerup', () => {
