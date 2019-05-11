@@ -115,6 +115,10 @@ export const loader = {
   path: 'assets/'
 };
 
+export const audio = {
+  disableWebAudio: true
+}
+
 /**
  *  Declare custom Phaser plugins.
  *
