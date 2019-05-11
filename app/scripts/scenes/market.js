@@ -48,8 +48,7 @@ export default class Market extends Phaser.Scene {
    */
   preload() {
     this.load.image('flower', 'flower.jpg');
-    this.load.image('Bee', 'bee.png');
-    this.load.image('Mosquito', 'mosquito.png');
+    this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
   /**
@@ -120,7 +119,6 @@ export default class Market extends Phaser.Scene {
   addSprite(picture){
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    console.log(picture);
     this.add.sprite(x - 100, y - 100, picture);
   }
 
