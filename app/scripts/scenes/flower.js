@@ -7,6 +7,7 @@ export default class Flower extends Phaser.Scene {
    */
   constructor() {
     super();
+    this.flower;
   }
 
   /**
@@ -39,21 +40,21 @@ export default class Flower extends Phaser.Scene {
       frames: [
         { key: "fleur1" },
         { key: "fleur2" },
-        { key: "fleur3" },
-        { key: "fleur4", duration: 10 }
+        { key: "fleur3" , duration: 10 }
       ],
       frameRate: 15
     });
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const flower = this.add.sprite(x, 585, "flower");
-    flower.on("pointerdown", () => {
+    this.add.image(x, 585, 'red');
+    this.flower = this.add.sprite(x, y, "fleur1").setScale(2);
+    this.flower.on("pointerdown", () => {
       this.score++;
       this.registry.set("score", this.score);
-      this.bounce(flower);
+      this.bounce(this.flower);
     });
     this.registry.events.on("changedata", this.handle, this);
-    flower.setInteractive();
+    this.flower.setInteractive();
   }
 
   handle(parent, key, data) {
@@ -71,7 +72,9 @@ export default class Flower extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
 
-  update() {}
+  update() {
+    this.flower.angle += 1
+  }
 
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.

@@ -206,8 +206,8 @@ export default class Market extends Phaser.Scene {
         `Pas assez de score pour \nacheter cette ${frenchName}`,
         { fill: "red" }
         );
-      this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
-      this.time.addEvent({ delay: 1000, callback: () => {
+      this.time.addEvent({ delay: 2000, callback: () => this.error.destroy() });
+      this.time.addEvent({ delay: 2000, callback: () => {
         if (this.texte !== undefined) {
           this.texte.destroy();
         }
@@ -228,8 +228,8 @@ export default class Market extends Phaser.Scene {
         `Pas assez de score pour \nacheter cette ${frenchName}`,
         { fill: "red" }
         );
-      this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
-      this.time.addEvent({ delay: 1000, callback: () => { 
+      this.time.addEvent({ delay: 2000, callback: () => this.error.destroy() });
+      this.time.addEvent({ delay: 2000, callback: () => { 
         if (this.texte !== undefined) {
           this.texte.destroy();
         }
