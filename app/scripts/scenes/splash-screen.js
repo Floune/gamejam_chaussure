@@ -67,7 +67,11 @@ export default class SplashScreen extends Phaser.Scene {
       .image("chiffre_quatre", "PNG/bubble/4.png")
       .image("flower", "flower.png")
       .image("pause", "PNG/btn/pause.png");
-    this.load.audio("startup_sound", "Bee-noise.mp3");
+    this.load
+      .audio("startup_sound", "sound/Bee-noise.mp3")
+      .audio("moustique", "sound/moustique.mp3")
+      .audio("butterfly", "sound/butterfly.mp3")
+      .audio("coccinelle", "sound/coccinelle.mp3");
 
     //  HINT: Declare all game assets to be loaded here.
   }
