@@ -40,8 +40,8 @@ export default class Game extends Phaser.Scene {
     this.scene.add("Market", Market, true, { score: this.score });
     this.data.scoreText = this.add
       .text(x, 20, "scoreE: " + this.score, {
-        fontsize: "32px",
-        fill: "#FFF"
+        font: "32px 'Bangers'",
+        fill: "#FFF",
       })
       .setDepth(1);
   }
