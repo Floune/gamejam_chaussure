@@ -46,7 +46,7 @@ export default class Flower extends Phaser.Scene {
     });
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const flower = this.add.sprite(x, y, "flower");
+    const flower = this.add.sprite(x, 585, "flower");
     flower.on("pointerdown", () => {
       this.score++;
       this.registry.set("score", this.score);
