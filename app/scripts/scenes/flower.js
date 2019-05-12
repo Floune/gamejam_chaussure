@@ -39,13 +39,23 @@ export default class Flower extends Phaser.Scene {
    */
    create(data) {
     this.score = data.score;
-
+    this.anims.create({
+      key: 'snooze',
+      frames: [
+        {key: 'fleur1'},
+        {key: 'fleur2'},
+        {key: 'fleur3'},
+        {key: 'fleur4', duration: 10},
+      ],
+      frameRate: 15,
+    });
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const flower = this.add.sprite(x, y, "flower");
     flower.on("pointerdown", () => {
       this.score++;
       this.registry.set('score', this.score);
+      this.bounce(flower);
     });
     this.registry.events.on("changedata", this.handle, this);
     flower.setInteractive();
@@ -55,6 +65,11 @@ export default class Flower extends Phaser.Scene {
     this.score = data
   }
 
+
+  bounce(flower) {
+    console.log('bouge connard');
+    flower.play('snooze');
+  }
   /**
    *  Handles updates to game logic, physics and game objects.
    *
