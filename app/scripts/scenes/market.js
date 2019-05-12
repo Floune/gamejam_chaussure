@@ -198,7 +198,7 @@ export default class Market extends Phaser.Scene {
       if (this.bulle !== undefined) {
         this.bulle.destroy();
       }
-      this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
+      this.bulle = this.add.image(150, 300, "bulle").setScale(0.45);
       this.error.destroy();
       this.error = this.add.text(
         30,
@@ -221,7 +221,7 @@ export default class Market extends Phaser.Scene {
       if (this.bulle !== undefined) {
         this.bulle.destroy();
       }
-      this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
+      this.bulle = this.add.image(150, 300, "bulle").setScale(0.45);
       this.error = this.add.text(
         30,
         250,
@@ -255,6 +255,13 @@ export default class Market extends Phaser.Scene {
     description
     ) {
     button.setInteractive();
+    button.on("pointerover", () => {
+      console.log('in')
+      this.sys.canvas.style.cursor = "pointer"
+    })
+    button.on("pointerout", () => {
+      this.sys.canvas.style.cursor = "default"
+    })
     button.on("pointerup", () => {
       if (this.score < price) {
         this.addError(frenchName);
@@ -292,18 +299,24 @@ export default class Market extends Phaser.Scene {
     if (this.close !== undefined) { 
       this.close.destroy();
     }
-    this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
+    this.bulle = this.add.image(150, 300, "bulle").setScale(0.45);
 
     this.texte = this.add.text(30, 195, description, { fill: "black" });
     this.close = this.add
-    .image(300, 370, "close")
+    .image(300, 390, "close")
     .setInteractive()
     .setScale(0.4)
     .on("pointerdown", () => {
       this.close.destroy();
       this.bulle.destroy();
       this.texte.destroy();
-    });
+    })
+    .on("pointerover", () => {
+      this.sys.canvas.style.cursor = "pointer"
+    })
+    .on("pointerout", () => {
+      this.sys.canvas.style.cursor = "default"
+    })
   }
 
   addSprite(picture) {

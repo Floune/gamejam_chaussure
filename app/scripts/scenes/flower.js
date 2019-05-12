@@ -46,8 +46,13 @@ export default class Flower extends Phaser.Scene {
     });
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.add.image(x, 585, 'red');
     this.flower = this.add.sprite(x, y, "fleur1").setScale(2);
+    this.flower.on("pointerover", () => {
+      this.sys.canvas.style.cursor = "pointer"
+    })
+    this.flower.on("pointerout", () => {
+      this.sys.canvas.style.cursor = "default"
+    })
     this.flower.on("pointerdown", () => {
       this.score++;
       this.registry.set("score", this.score);

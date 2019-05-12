@@ -11,7 +11,7 @@ export default class Game extends Phaser.Scene {
    */
   constructor() {
     super({ key: "Game" });
-    this.score = 100;
+    this.score = 0;
   }
 
   /**
