@@ -7,66 +7,66 @@ export default class Market extends Phaser.Scene {
   constructor() {
     super();
     this.error = "";
-    this.market = [
+     this.market = [
       {
-        name: "Mosquito",
+        name: "mosquito",
         frenchName: "Moustique",
         price: 100,
         score: 10,
         delay: 1000,
-        posY: 0,
+        posY: 70,
         bonus: 0,
         bonusText: '',
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
+          "Fléau de l’été, son « bzzziiiiiii » nocturne  \nannonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
       },
       {
-        name: "Bee",
-        frenchName: "Abeille",
-        price: 1000,
-        score: 100,
-        delay: 5000,
-        posY: 30,
-        picture: "bee.png",
-        bonus: 0,
-        bonusText: '',
-        description:
-          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
-      },
-      {
-        name: "Butterfly",
-        frenchName: "Papillon",
-        price: 900,
-        score: 90,
-        delay: 4000,
-        posY: 30,
-        picture: "butterfly.png",
-        bonus: 0,
-        bonusText: '',
-        description:
-          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
-      },
-      {
-        name: "Ladybug",
+        name: "ladybug",
         frenchName: "Coccinelle",
         price: 300,
         score: 50,
         delay: 2000,
-        posY: 30,
-        picture: "ladybug.png",
+        posY: 185,
         bonus: 0,
         bonusText: '',
+        picture: "ladybug.png",
         description:
           "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
       },
       {
-        name: "Hive",
+        name: "butterfly",
+        frenchName: "Papillon",
+        price: 900,
+        score: 90,
+        delay: 4000,
+        posY: 300,
+        bonus: 0,
+        bonusText: '',
+        picture: "butterfly.png",
+        description:
+          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
+      },
+      {
+        name: "bee",
+        frenchName: "Abeille",
+        price: 1000,
+        score: 100,
+        delay: 5000,
+        posY: 420,
+        bonus: 0,
+        bonusText: '',
+        picture: "bee.png",
+        description:
+          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
+      },
+      {
+        name: "hive",
         frenchName: "Ruche",
         price: 1000000,
         score: 1000,
         delay: 1000,
-        posY: 30,
+        posY: 540,
         bonus: 0,
         bonusText: '',
         picture: "transparent-bee-pixel-5.png",
@@ -75,7 +75,7 @@ export default class Market extends Phaser.Scene {
       }
     ];
   }
-
+  
   /**
    *  Called when this scene is initialized.
    *
@@ -91,12 +91,16 @@ export default class Market extends Phaser.Scene {
    *  @protected
    */
 
-   preload() {
-    this.load.image('flower', 'flower.jpg');
-    this.load.image('btn_bee', 'bee_btn.png');
-    this.load.image('btn_mosquito', 'mosquito_btn.png');
+
+  preload() {
+    this.load.image("flower", "flower.jpg");
+    this.market.forEach(({ name, picture }) => this.load.image(name, picture));
+    this.load.image("btn_bee", "bee_btn.png");
+    this.load.image("btn_mosquito", "mosquito_btn.png")
+    this.load.image("btn_butterfly", "butterfly_btn.png")
+    this.load.image("btn_hive", "hive_btn.png")
+    this.load.image("btn_ladybug", "ladybug_btn.png")
     this.load.script('Bangers', "https://fonts.googleapis.com/css?family=Bangers")
-    this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
   /**
@@ -154,6 +158,7 @@ export default class Market extends Phaser.Scene {
   destroy() {}
 
   createButton(posY, text) {
+    console.log(`btn_${text}`);
     return this.add
       .image(this.cameras.main.width - 150, posY, `btn_${text}`)
       .setScale(0.2, 0.2);
@@ -204,12 +209,13 @@ export default class Market extends Phaser.Scene {
         });
       this.addSprite(name, bonus);
       }
-    });
     this.addBulle();
+    });
   }
 
   addBulle() {
     this.add.image(150, 300, "bulle").setScale(0.4);
+    this.add.image(300, 370, "close").setScale(0.4);
   }
 
   addSprite(picture) {
@@ -218,8 +224,15 @@ export default class Market extends Phaser.Scene {
     if (picture === "mosquito") {
       this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
     } else if (picture === "bee") {
-      this.add.sprite(x - 100, y - 200, picture).setScale(0.2, 0.2);
+      this.add.sprite(x - 250, y - 250, picture).setScale(0.2, 0.2);
+    } else if (picture === "ladybug") {
+      this.add.sprite(x - 150, y - 150, picture).setScale(0.1, 0.1);
+    } else if (picture === "butterfly") {
+      this.add.sprite(x - 200, y - 200, picture).setScale(0.2, 0.2);
+    }else if (picture === "hive") {
+      this.add.sprite(x - 300, y - 300, picture).setScale(0.2, 0.2);
     }
+
   }
 
   updateCounter(number) {
