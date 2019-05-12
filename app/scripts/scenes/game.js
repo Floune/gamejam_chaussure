@@ -25,8 +25,6 @@ export default class Game extends Phaser.Scene {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
-    // const pause_button = this.add.image(75, 660, "pause").setScale(0.5, 0.5);
-    // const play_button = this.add.image(180, 660, "play").setScale(0.5, 0.5);
     back_button.setInteractive();
     back_button.alpha = 0.6;
     back_button.on("pointerup", () => {
@@ -46,29 +44,6 @@ export default class Game extends Phaser.Scene {
         fill: "#FFF"
       })
       .setDepth(1);
-
-    // pause_button.setInteractive();
-    // play_button.setInteractive();
-
-    // pause_button.on("pointerup", () => {
-    //   this.scene.pause();
-    //   this.add.text(x - 150, 325, "|| Pause || ", {
-    //     font: "64px Arial",
-    //     color: "black"
-    //   });
-    // });
-
-    // play_button.on("pointerup", () => {
-    //   this.scene.resume();
-    // });
-
-    // pause_button.alpha = 0.6;
-    // pause_button.on("pointerover", () => pause_button.setAlpha(1));
-    // pause_button.on("pointerout", () => pause_button.setAlpha(0.6));
-
-    // play_button.alpha = 0.6;
-    // play_button.on("pointerover", () => play_button.setAlpha(1));
-    // play_button.on("pointerout", () => play_button.setAlpha(0.6));
   }
 
   handle(parent, key, data) {
@@ -88,7 +63,5 @@ export default class Game extends Phaser.Scene {
     this.data.scoreText.setText("Score: " + this.score);
   }
 
-  render(){
-
-  }
+  render() {}
 }
