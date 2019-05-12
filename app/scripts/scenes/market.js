@@ -49,6 +49,8 @@ export default class Market extends Phaser.Scene {
    */
    preload() {
     this.load.image('flower', 'flower.jpg');
+    this.load.image('btn_bee', 'bee_btn.png');
+    this.load.image('btn_mosquito', 'mosquito_btn.png');
     this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
@@ -130,18 +132,12 @@ export default class Market extends Phaser.Scene {
         this.addError(frenchName);
       } else {
       this.score -= price;
-<<<<<<< HEAD
-      this.registry.set('score', this.score)
-      // this.scoreText.setText(`Score: ${this.score}`);
-      this.bonus.bee++;
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-=======
+
       this.registry.set('score', this.score);
       this.bonus.bee ++;
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
       this.addSprite(name);
       }
->>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
     })
   }
 
@@ -154,9 +150,5 @@ export default class Market extends Phaser.Scene {
   updateCounter(number){
     this.score += number;
     this.registry.set('score', this.score);
-<<<<<<< HEAD
-    //this.scoreText.setText(`Score: ${this.score}`);
-=======
->>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
   }
 }
