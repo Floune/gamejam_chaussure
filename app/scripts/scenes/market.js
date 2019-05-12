@@ -4,34 +4,76 @@ export default class Market extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-   constructor() {
+  constructor() {
     super();
-    this.error = '';
+    this.error = "";
     this.market = [
-    {
-      name: 'mosquito',
-      frenchName: 'Moustique',
-      price: 100,
-      score: 10,
-      delay: 1000,
-      bonus: 0,
-      posY: 55,
-      picture: 'mosquito.png',
-      bonusText: '',
-    },
-    {
-      name: 'bee',
-      frenchName: 'Abeille',
-      price: 1000,
-      score: 100,
-      delay: 5000,
-      bonus: 0,
-      posY: 180,
-      picture: 'bee.png',
-      bonusText: '',
-    }
-    ]
-    this.loadResources;
+      {
+        name: "Mosquito",
+        frenchName: "Moustique",
+        price: 100,
+        score: 10,
+        delay: 1000,
+        posY: 0,
+        bonus: 0,
+        bonusText: '',
+        picture: "mosquito.png",
+        description:
+          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
+      },
+      {
+        name: "Bee",
+        frenchName: "Abeille",
+        price: 1000,
+        score: 100,
+        delay: 5000,
+        posY: 30,
+        picture: "bee.png",
+        bonus: 0,
+        bonusText: '',
+        description:
+          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
+      },
+      {
+        name: "Butterfly",
+        frenchName: "Papillon",
+        price: 900,
+        score: 90,
+        delay: 4000,
+        posY: 30,
+        picture: "butterfly.png",
+        bonus: 0,
+        bonusText: '',
+        description:
+          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
+      },
+      {
+        name: "Ladybug",
+        frenchName: "Coccinelle",
+        price: 300,
+        score: 50,
+        delay: 2000,
+        posY: 30,
+        picture: "ladybug.png",
+        bonus: 0,
+        bonusText: '',
+        description:
+          "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
+      },
+      {
+        name: "Hive",
+        frenchName: "Ruche",
+        price: 1000000,
+        score: 1000,
+        delay: 1000,
+        posY: 30,
+        bonus: 0,
+        bonusText: '',
+        picture: "transparent-bee-pixel-5.png",
+        description:
+          "Les ruches peuvent contenir entre 15 000 et 60 000 abeilles qui peuvent parcourir environ 30km/heure."
+      }
+    ];
   }
 
   /**
@@ -40,14 +82,15 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init() {
-   }
+
+  init() {}
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
    *
    *  @protected
    */
+
    preload() {
     this.load.image('flower', 'flower.jpg');
     this.load.image('btn_bee', 'bee_btn.png');
@@ -62,18 +105,19 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
+
   create(data) {
+    this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus, bonusText}) => {
       const button = this.createButton(posY, name);
       this.setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText);
-
     });
   }
 
   handle(parent, key, data) {
-    this.score = data
+    this.score = data;
   }
 
   /**
@@ -83,24 +127,22 @@ export default class Market extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-  update(/* t, dt */) {
 
-  }
+  update(/* t, dt */) {}
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
-  render() {
-  }
+
+  render() {}
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-  shutdown() {
-  }
+  shutdown() {}
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -109,30 +151,39 @@ export default class Market extends Phaser.Scene {
    *
    *  @protected
    */
-  destroy() {
-  }
+  destroy() {}
 
-   createButton(posY, text){
-    return this.add.image(this.cameras.main.width - 150, posY, `btn_${text}`)
+  createButton(posY, text) {
+    return this.add
+      .image(this.cameras.main.width - 150, posY, `btn_${text}`)
       .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
-    if(this.error !== '') {
+    if (this.error !== "") {
       this.error.destroy();
-      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
-      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+      this.error = this.add.text(
+        120,
+        0,
+        `Pas assez de score pour acheter cette ${frenchName}`,
+        { fill: "red" }
+      );
+      this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
     } else {
-      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
-      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+      this.error = this.add.text(
+        120,
+        0,
+        `Pas assez de score pour acheter cette ${frenchName}`,
+        { fill: "red" }
+      );
+      this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
     }
-
   }
-
+  
   setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText){
     button.setInteractive();
-    button.on('pointerup', () => {
-      if(this.score < price) {
+    button.on("pointerup", () => {
+      if (this.score < price) {
         this.addError(frenchName);
       } else {
       this.score -= price;
@@ -145,21 +196,34 @@ export default class Market extends Phaser.Scene {
       } else {
         bonusText.setText(`X ${bonus}`)
       }
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+      this.timer = this.time.addEvent({
+          delay: delay,
+          loop: true,
+          callback: () => this.updateCounter(score),
+          callbackScope: this
+        });
       this.addSprite(name, bonus);
       }
-    })
+    });
+    this.addBulle();
   }
 
-  addSprite(picture, bonus){
+  addBulle() {
+    this.add.image(150, 300, "bulle").setScale(0.4);
+  }
+
+  addSprite(picture) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const sprite = this.add.sprite(x - 100, y - 100, picture);
-    
+    if (picture === "mosquito") {
+      this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
+    } else if (picture === "bee") {
+      this.add.sprite(x - 100, y - 200, picture).setScale(0.2, 0.2);
+    }
   }
 
-  updateCounter(number){
+  updateCounter(number) {
     this.score += number;
-    this.registry.set('score', this.score);
+    this.registry.set("score", this.score);
   }
 }

@@ -39,17 +39,22 @@ export default class SplashScreen extends Phaser.Scene {
     this.load
       .image("start_bee", "bee.png")
       .image("red", "red.png")
+      .image("bee1", "bee_btn1.png")
+      .image("bee2", "bee_btn2.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
       .image("minus", "PNG/settings/98.png")
       .image("bg1", "bg1.jpg")
+      .image("aide", "aide.png")
       .image("fleur2", "flower2.png")
       .image("fleur1", "flower3.png")
       .image("fleur3", "flower31.png")
+      .image("bulle", "PNG/clouds/4.png")
       .image("fleur4", "flower4.png")
       .image("back", "PNG/btn/prew.png")
-      .image("background", "layer07_Sky.png");
-
+      .image("background", "layer07_Sky.png")
+      .image("flower", "flower.png")
+      .image("pause", "PNG/btn/pause.png");
     this.load.audio("startup_sound", "Bee-noise.mp3");
 
     //  HINT: Declare all game assets to be loaded here.
@@ -64,7 +69,6 @@ export default class SplashScreen extends Phaser.Scene {
   create() {
     //  We have nothing left to do here. Start the next scene.
     this.scene.start("Title");
-
   }
 
   //  ------------------------------------------------------------------------

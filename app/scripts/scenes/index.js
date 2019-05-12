@@ -12,4 +12,3 @@ export { default as Game } from "./game";
 export { default as Title } from "./title";
 //export { default as Flower } from "./flower";
 //export { default as Market} from './market';
-
