@@ -21,7 +21,7 @@ export default class Market extends Phaser.Scene {
         posY: 0,
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
+          "Fléau de l’été, son « bzzziiiiiii » nocturne  \nannonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
       },
       {
         name: "Bee",
@@ -103,10 +103,10 @@ export default class Market extends Phaser.Scene {
     this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach(({ name, price, score, delay, posY, frenchName }) => {
+    this.market.forEach(({ name, price, score, delay, posY, frenchName, description }) => {
       const button = this.createButton(posY, name);
 
-      this.setEventButton(button, price, delay, score, name, frenchName);
+      this.setEventButton(button, price, delay, score, name, frenchName, description);
     });
   }
 
@@ -174,7 +174,7 @@ export default class Market extends Phaser.Scene {
     }
   }
 
-  setEventButton(button, price, delay, score, name, frenchName) {
+  setEventButton(button, price, delay, score, name, frenchName, description) {
     button.setInteractive();
     button.on("pointerup", () => {
       if (this.score < price) {
@@ -191,13 +191,14 @@ export default class Market extends Phaser.Scene {
         });
         this.addSprite(name);
       }
-    this.addBulle();
+    this.addBulle(description);
     });
   }
 
-  addBulle() {
+  addBulle(description) {
     this.add.image(150, 300, "bulle").setScale(0.4);
     this.add.image(300, 370, "close").setScale(0.4);
+    this.add.text(153, 303, description, {fill: 'black'})
   }
 
   addSprite(picture) {
