@@ -21,7 +21,7 @@ export default class Market extends Phaser.Scene {
         posY: 0,
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables."
+          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
       },
       {
         name: "Bee",
@@ -32,7 +32,7 @@ export default class Market extends Phaser.Scene {
         posY: 30,
         picture: "bee.png",
         description:
-          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation."
+          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
       },
       {
         name: "Butterfly",
@@ -43,7 +43,18 @@ export default class Market extends Phaser.Scene {
         posY: 30,
         picture: "butterfly.png",
         description:
-          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité."
+          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
+      },
+      {
+        name: "Ladybug",
+        frenchName: "Coccinelle",
+        price: 900,
+        score: 90,
+        delay: 4000,
+        posY: 30,
+        picture: "butterfly.png",
+        description:
+          "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
       }
     ];
   }
@@ -81,6 +92,7 @@ export default class Market extends Phaser.Scene {
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach(({ name, price, score, delay, posY, frenchName }) => {
       const button = this.createButton(posY, frenchName);
+
       this.setEventButton(button, price, delay, score, name, frenchName);
     });
   }
@@ -121,12 +133,9 @@ export default class Market extends Phaser.Scene {
   destroy() {}
 
   createButton(posY, text) {
-    return this.add.text(
-      this.cameras.main.width - 200,
-      posY,
-      text,
-      this.styleButton
-    );
+    return this.add
+      .image(this.cameras.main.width - 150, posY, `btn_${text}`)
+      .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
