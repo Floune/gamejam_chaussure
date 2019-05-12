@@ -11,7 +11,7 @@ export default class Game extends Phaser.Scene {
    */
   constructor() {
     super({ key: "Game" });
-    this.score = 0;
+    this.score = 1000000000;
   }
 
   /**
@@ -106,11 +106,8 @@ export default class Game extends Phaser.Scene {
    *  @param {number} t Current internal clock time.
    *  @param {number} dt Time elapsed since last update.
    */
-
   render() {}
   update(/* t, dt */) {
     this.data.scoreText.setText("Score: " + this.score);
   }
-
-  render() {}
 }
