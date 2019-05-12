@@ -40,7 +40,7 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-   init(data) {
+   init() {
    }
 
   /**
