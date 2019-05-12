@@ -46,6 +46,7 @@ export default class SplashScreen extends Phaser.Scene {
       .image("minus", "PNG/settings/98.png")
       .image("bg1", "bg1.jpg")
       .image("aide", "aide.png")
+      .image("close", "PNG/btn/close.png")
       .image("fleur2", "flower2.png")
       .image("fleur1", "flower3.png")
       .image("fleur3", "flower31.png")
