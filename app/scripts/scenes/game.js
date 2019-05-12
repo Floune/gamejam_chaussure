@@ -34,7 +34,7 @@ export default class Game extends Phaser.Scene {
     });
     back_button.on("pointerover", () => back_button.setAlpha(1));
     back_button.on("pointerout", () => back_button.setAlpha(0.6));
-    this.add.image(x, y, "background").setDepth(-1);
+    this.add.image(x, y, "background3").setDepth(-1);
     this.registry.events.on("changedata", this.handle, this);
     this.scene.add("Flower", Flower, true, { score: this.score });
     this.scene.add("Market", Market, true, { score: this.score });
