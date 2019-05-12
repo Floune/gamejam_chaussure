@@ -8,6 +8,7 @@ export default class Market extends Phaser.Scene {
     super();
     this.error = "";
     this.market = [
+
     {
       name: "mosquito",
       frenchName: "Moustique",
@@ -73,9 +74,10 @@ export default class Market extends Phaser.Scene {
       description:
       "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
     }
+
     ];
   }
-  
+
   /**
    *  Called when this scene is initialized.
    *
@@ -91,17 +93,19 @@ export default class Market extends Phaser.Scene {
    *  @protected
    */
 
-
-   preload() {
-    this.load.image("flower", "flower.jpg");
-    this.market.forEach(({ name, picture }) => this.load.image(name, picture));
-    this.load.image("btn_bee", "bee_btn.png");
-    this.load.image("btn_mosquito", "mosquito_btn.png")
-    this.load.image("btn_butterfly", "butterfly_btn.png")
-    this.load.image("btn_hive", "hive_btn.png")
-    this.load.image("btn_ladybug", "ladybug_btn.png")
-    this.load.script('Bangers', "https://fonts.googleapis.com/css?family=Bangers")
-  }
+    preload() {
+      this.load.image("flower", "flower.jpg");
+      this.market.forEach(({ name, picture }) => this.load.image(name, picture));
+      this.load.image("btn_bee", "bee_btn.png");
+      this.load.image("btn_mosquito", "mosquito_btn.png");
+      this.load.image("btn_butterfly", "butterfly_btn.png");
+      this.load.image("btn_hive", "hive_btn.png");
+      this.load.image("btn_ladybug", "ladybug_btn.png");
+      this.load.script(
+        "Bangers",
+        "https://fonts.googleapis.com/css?family=Bangers"
+        );
+    }
 
   /**
    *  Responsible for setting up game objects on the screen.
@@ -110,20 +114,42 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
 
-   create(data) {
-    this.add.image(100, 500, "aide");
-    this.score = data.score;
-    this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus, bonusText, description}) => {
-      const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description);
-    });
+    create(data) {
+      this.add.image(100, 500, "aide");
+      this.score = data.score;
+      this.registry.events.on("changedata", this.handle, this);
+      this.market.forEach(
+        ({
+          name,
+          price,
+          score,
+          delay,
+          posY,
+          frenchName,
+          bonus,
+          bonusText,
+          description
+        }) => {
+          const button = this.createButton(posY, name);
+          this.setEventButton(
+            button,
+            price,
+            delay,
+            score,
+            name,
+            frenchName,
+            bonus,
+            posY,
+            bonusText,
+            description
+            );
+        }
+        );
+    }
 
-  }
-
-  handle(parent, key, data) {
-    this.score = data;
-  }
+    handle(parent, key, data) {
+      this.score = data;
+    }
 
   /**
    *  Handles updates to game logic, physics and game objects.
@@ -158,11 +184,12 @@ export default class Market extends Phaser.Scene {
    */
    destroy() {}
 
-   createButton(posY, text) {
-    console.log(`btn_${text}`);
+
+  createButton(posY, text) {
+
     return this.add
-    .image(this.cameras.main.width - 150, posY, `btn_${text}`)
-    .setScale(0.2, 0.2);
+      .image(this.cameras.main.width - 150, posY, `btn_${text}`)
+      .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
@@ -215,30 +242,42 @@ export default class Market extends Phaser.Scene {
     }
   }
 
-  setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description){
+  setEventButton(
+    button,
+    price,
+    delay,
+    score,
+    name,
+    frenchName,
+    bonus,
+    posY,
+    bonusText,
+    description
+    ) {
     button.setInteractive();
     button.on("pointerup", () => {
       if (this.score < price) {
         this.addError(frenchName);
       } else {
-        this.score -= price;
-        this.registry.set('score', this.score);
-        bonus++;
-        if(bonusText === '') {
-          bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
-            fontFamily: 'Bangers',
-          })
-        } else {
-          bonusText.setText(`X ${bonus}`)
-        }
-        this.timer = this.time.addEvent({
-          delay: delay,
-          loop: true,
-          callback: () => this.updateCounter(score),
-          callbackScope: this
-        });
-        this.addSprite(name, bonus);
-        this.addBulle(description);
+          this.score -= price;
+          this.registry.set('score', this.score);
+          bonus++;
+          if(bonusText === '') {
+            bonusText = this.add.text(this.cameras.main.width - 65, posY - 50, `X${bonus}`,
+            {
+              font: "20px 'Bangers'"
+            })
+          } else {
+            bonusText.setText(`X${bonus}`)
+          }
+          this.timer = this.time.addEvent({
+            delay: delay,
+            loop: true,
+            callback: () => this.updateCounter(score),
+            callbackScope: this
+          });
+          this.addSprite(name, bonus);
+          this.addBulle(description);
       }
     });
   }
@@ -254,31 +293,39 @@ export default class Market extends Phaser.Scene {
       this.close.destroy();
     }
     this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
-    this.texte = this.add.text(30, 195, description, {fill: 'black'});
-    this.close = this.add.image(300, 370, "close").setInteractive()
+
+    this.texte = this.add.text(30, 195, description, { fill: "black" });
+    this.close = this.add
+    .image(300, 370, "close")
+    .setInteractive()
     .setScale(0.4)
-    .on('pointerdown', () => {
+    .on("pointerdown", () => {
       this.close.destroy();
       this.bulle.destroy();
       this.texte.destroy();
-    })
+    });
   }
 
   addSprite(picture) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     if (picture === "mosquito") {
-      this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
-    } else if (picture === "bee") {
-      this.add.sprite(x - 250, y - 250, picture).setScale(0.2, 0.2);
+      this.add.sprite(x - 50, y + 150, picture).setScale(0.2, 0.2);
     } else if (picture === "ladybug") {
-      this.add.sprite(x - 150, y - 150, picture).setScale(0.1, 0.1);
+      this.add.sprite(x + 195, y + 150, picture)
+      .setScale(0.2, 0.2)
+      .setRotation(15);
+    } else if (picture === "bee") {
+      this.add.sprite(x + 50, y + 100, picture)
+      .setScale(0.2, 0.2)
+      .setRotation(50);
     } else if (picture === "butterfly") {
-      this.add.sprite(x - 200, y - 200, picture).setScale(0.2, 0.2);
+      this.add.sprite(x - 180, y + 250, picture)
+      .setScale(0.3, 0.3)
+      .setRotation(25);
     }else if (picture === "hive") {
-      this.add.sprite(x - 300, y - 300, picture).setScale(0.2, 0.2);
+      this.add.sprite(x + 80 , y + 230, picture).setScale(0.5, 0.5);
     }
-
   }
 
   updateCounter(number) {
