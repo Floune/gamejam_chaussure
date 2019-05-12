@@ -145,7 +145,12 @@ export default class Market extends Phaser.Scene {
   addSprite(picture){
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.add.sprite(x - 100, y - 100, picture);
+    if(picture === "mosquito"){
+      this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
+    }
+    else if(picture === "bee"){
+      this.add.sprite(x - 100, y - 200, picture).setScale(0.2, 0.2);
+    }
   }
 
   updateCounter(number){
