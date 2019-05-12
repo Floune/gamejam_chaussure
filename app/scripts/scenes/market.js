@@ -89,10 +89,10 @@ export default class Market extends Phaser.Scene {
     this.load.image("flower", "flower.jpg");
     this.market.forEach(({ name, picture }) => this.load.image(name, picture));
     this.load.image("btn_bee", "bee_btn.png");
-    this.load.image("btn_mosquito", "mosquito_btn.png")
-    this.load.image("btn_butterfly", "butterfly_btn.png")
-    this.load.image("btn_hive", "hive_btn.png")
-    this.load.image("btn_ladybug", "ladybug_btn.png")
+    this.load.image("btn_mosquito", "mosquito_btn.png");
+    this.load.image("btn_butterfly", "butterfly_btn.png");
+    this.load.image("btn_hive", "hive_btn.png");
+    this.load.image("btn_ladybug", "ladybug_btn.png");
   }
 
   /**
@@ -151,7 +151,7 @@ export default class Market extends Phaser.Scene {
   destroy() {}
 
   createButton(posY, text) {
-    console.log(`btn_${text}`);
+    // console.log(`btn_${text}`);
     return this.add
       .image(this.cameras.main.width - 150, posY, `btn_${text}`)
       .setScale(0.2, 0.2);
@@ -195,7 +195,7 @@ export default class Market extends Phaser.Scene {
         });
         this.addSprite(name);
       }
-    this.addBulle();
+      this.addBulle();
     });
   }
 
@@ -215,10 +215,9 @@ export default class Market extends Phaser.Scene {
       this.add.sprite(x - 150, y - 150, picture).setScale(0.1, 0.1);
     } else if (picture === "butterfly") {
       this.add.sprite(x - 200, y - 200, picture).setScale(0.2, 0.2);
-    }else if (picture === "hive") {
+    } else if (picture === "hive") {
       this.add.sprite(x - 300, y - 300, picture).setScale(0.2, 0.2);
     }
-
   }
 
   updateCounter(number) {
