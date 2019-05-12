@@ -38,8 +38,9 @@ export default class Game extends Phaser.Scene {
     this.registry.events.on("changedata", this.handle, this);
     this.scene.add("Flower", Flower, true, { score: this.score });
     this.scene.add("Market", Market, true, { score: this.score });
+    this.add.image(x, 20, "table")
     this.data.scoreText = this.add
-      .text(x, 20, "scoreE: " + this.score, {
+      .text(x - 150, 5, "score: " + this.score, {
         font: "32px 'Bangers'",
         fill: "#FFF",
       })

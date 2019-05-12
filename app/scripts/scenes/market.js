@@ -75,7 +75,7 @@ export default class Market extends Phaser.Scene {
       }
     ];
   }
-  
+
   /**
    *  Called when this scene is initialized.
    *
@@ -197,11 +197,12 @@ export default class Market extends Phaser.Scene {
       this.registry.set('score', this.score);
       bonus++;
       if(bonusText === '') {
-        bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
-          fontFamily: 'Bangers',
-        })
+        bonusText = this.add.text(this.cameras.main.width - 65, posY - 50, `X${bonus}`,
+          {
+            font: "20px 'Bangers'"
+          })
       } else {
-        bonusText.setText(`X ${bonus}`)
+        bonusText.setText(`X${bonus}`)
       }
       this.timer = this.time.addEvent({
           delay: delay,
@@ -231,15 +232,21 @@ export default class Market extends Phaser.Scene {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     if (picture === "mosquito") {
-      this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
-    } else if (picture === "bee") {
-      this.add.sprite(x - 250, y - 250, picture).setScale(0.2, 0.2);
+      this.add.sprite(x - 50, y + 150, picture).setScale(0.2, 0.2);
     } else if (picture === "ladybug") {
-      this.add.sprite(x - 150, y - 150, picture).setScale(0.1, 0.1);
+      this.add.sprite(x + 195, y + 150, picture)
+        .setScale(0.2, 0.2)
+        .setRotation(15);
+    } else if (picture === "bee") {
+      this.add.sprite(x + 50, y + 100, picture)
+        .setScale(0.2, 0.2)
+        .setRotation(50);
     } else if (picture === "butterfly") {
-      this.add.sprite(x - 200, y - 200, picture).setScale(0.2, 0.2);
+      this.add.sprite(x - 180, y + 250, picture)
+        .setScale(0.3, 0.3)
+        .setRotation(25);
     }else if (picture === "hive") {
-      this.add.sprite(x - 300, y - 300, picture).setScale(0.2, 0.2);
+      this.add.sprite(x + 80 , y + 230, picture).setScale(0.5, 0.5);
     }
 
   }
