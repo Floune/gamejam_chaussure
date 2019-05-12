@@ -21,7 +21,7 @@ export default class Market extends Phaser.Scene {
         posY: 70,
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son « bzzziiiiiii » nocturne  \nannonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
+          "Fléau de l’été, son \n« bzzziiiiiii » nocturne\n annonce un très mauvais\n sommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
       },
       {
         name: "ladybug",
@@ -32,7 +32,7 @@ export default class Market extends Phaser.Scene {
         posY: 185,
         picture: "ladybug.png",
         description:
-          "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
+          "Etant dans les premières \nà sortir de leurs refuges\n d'hiver (à partir de 12°),\n les coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
       },
       {
         name: "butterfly",
@@ -202,7 +202,7 @@ export default class Market extends Phaser.Scene {
   addBulle(description) {
     this.add.image(150, 300, "bulle").setScale(0.4);
     this.add.image(300, 370, "close").setScale(0.4);
-    this.add.text(153, 303, description, {fill: 'black'})
+    this.add.text(30, 190, description, {fill: 'black'})
   }
 
   addSprite(picture) {
