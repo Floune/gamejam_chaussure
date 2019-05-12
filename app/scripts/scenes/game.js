@@ -62,4 +62,8 @@ export default class Game extends Phaser.Scene {
    update(/* t, dt */) {
     this.data.scoreText.setText("Score: " + this.score);
   }
+
+  render(){
+
+  }
 }
