@@ -39,6 +39,8 @@ export default class SplashScreen extends Phaser.Scene {
     this.load
       .image("start_bee", "bee.png")
       .image("red", "red.png")
+      .image("bee1", "bee_btn1.png")
+      .image("bee2", "bee_btn2.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
       .image("minus", "PNG/settings/98.png")

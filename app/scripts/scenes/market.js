@@ -60,7 +60,7 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  create(data) {
+   create(data) {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
@@ -80,24 +80,24 @@ export default class Market extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
-  update(/* t, dt */) {
+   update(/* t, dt */) {
 
-  }
+   }
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
-  render() {
-  }
+   render() {
+   }
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-  shutdown() {
-  }
+   shutdown() {
+   }
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -106,12 +106,12 @@ export default class Market extends Phaser.Scene {
    *
    *  @protected
    */
-  destroy() {
-  }
+   destroy() {
+   }
 
    createButton(posY, text){
     return this.add.image(this.cameras.main.width - 150, posY, `btn_${text}`)
-      .setScale(0.2, 0.2);
+    .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
@@ -132,12 +132,12 @@ export default class Market extends Phaser.Scene {
       if(this.score < price) {
         this.addError(frenchName);
       } else {
-      this.score -= price;
+        this.score -= price;
 
-      this.registry.set('score', this.score);
-      this.bonus.bee ++;
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-      this.addSprite(name);
+        this.registry.set('score', this.score);
+        this.bonus.bee ++;
+        this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+        this.addSprite(name);
       }
     })
   }
