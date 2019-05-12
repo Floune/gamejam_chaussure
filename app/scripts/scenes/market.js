@@ -21,7 +21,7 @@ export default class Market extends Phaser.Scene {
         posY: 70,
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son \n« bzzziiiiiii » nocturne\n annonce un très mauvais\n sommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
+          "Fléau de l’été, son \n« bzzziiiiiii » nocturne\nannonce un très mauvais\nsommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
       },
       {
         name: "ladybug",
@@ -32,7 +32,7 @@ export default class Market extends Phaser.Scene {
         posY: 185,
         picture: "ladybug.png",
         description:
-          "Etant dans les premières \nà sortir de leurs refuges\n d'hiver (à partir de 12°),\n les coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
+          "Etant dans les premières \nà sortir de leurs refuges\nd'hiver (à partir de 12°),\nles coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
       },
       {
         name: "butterfly",
@@ -43,7 +43,7 @@ export default class Market extends Phaser.Scene {
         posY: 300,
         picture: "butterfly.png",
         description:
-          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
+          "Comme les abbeilles, les \npapillons pollinisent \nnos cultures. Le jour, \nles papillons se mêlent aux \nautres insectes pollinisateurs. \nPar contre, la nuit, \nles papillons nocturnes sont, \navec quelques coléoptères, \nles seules en activité."
       },
       {
         name: "bee",
@@ -54,7 +54,7 @@ export default class Market extends Phaser.Scene {
         posY: 420,
         picture: "bee.png",
         description:
-          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
+          "Ce sont les abeilles qui \nassurent le meilleur \nransport des grains \nde pollen de fleur \nen fleur. Une abeille \npeut: stocker sur une seule \nde ses pattes postérieures \n500 000 grains de pollen, \nvisiter en une 1 heure 250 \nfleurs !"
       },
       {
         name: "hive",
@@ -65,7 +65,7 @@ export default class Market extends Phaser.Scene {
         posY: 540,
         picture: "transparent-bee-pixel-5.png",
         description:
-          "Les ruches peuvent contenir entre 15 000 et 60 000 abeilles qui peuvent parcourir environ 30km/heure."
+          "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
       }
     ];
   }
@@ -103,6 +103,7 @@ export default class Market extends Phaser.Scene {
    */
 
   create(data) {
+
     this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
@@ -111,6 +112,7 @@ export default class Market extends Phaser.Scene {
 
       this.setEventButton(button, price, delay, score, name, frenchName, description);
     });
+
   }
 
   handle(parent, key, data) {
@@ -200,9 +202,15 @@ export default class Market extends Phaser.Scene {
   }
 
   addBulle(description) {
-    this.add.image(150, 300, "bulle").setScale(0.4);
-    this.add.image(300, 370, "close").setScale(0.4);
-    this.add.text(30, 190, description, {fill: 'black'})
+    this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
+    this.texte = this.add.text(30, 195, description, {fill: 'black'});
+    this.close = this.add.image(300, 370, "close").setInteractive()
+      .setScale(0.4)
+      .on('pointerdown', () => {
+        this.close.destroy();
+        this.bulle.destroy();
+        this.texte.destroy();
+      })
   }
 
   addSprite(picture) {
