@@ -33,6 +33,17 @@ export default class Market extends Phaser.Scene {
         picture: "bee.png",
         description:
           "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation."
+      },
+      {
+        name: "Butterfly",
+        frenchName: "Papillon",
+        price: 900,
+        score: 90,
+        delay: 4000,
+        posY: 30,
+        picture: "butterfly.png",
+        description:
+          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité."
       }
     ];
   }
