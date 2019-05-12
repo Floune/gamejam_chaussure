@@ -14,9 +14,10 @@ export default class Market extends Phaser.Scene {
       price: 100,
       score: 10,
       delay: 1000,
-      bonus: 0
+      bonus: 0,
       posY: 55,
-      picture: 'mosquito.png'
+      picture: 'mosquito.png',
+      bonusText: '',
     },
     {
       name: 'bee',
@@ -24,11 +25,13 @@ export default class Market extends Phaser.Scene {
       price: 1000,
       score: 100,
       delay: 5000,
-      bonus: 0
+      bonus: 0,
       posY: 180,
-      picture: 'bee.png'
+      picture: 'bee.png',
+      bonusText: '',
     }
     ]
+    this.loadResources;
   }
 
   /**
@@ -49,6 +52,7 @@ export default class Market extends Phaser.Scene {
     this.load.image('flower', 'flower.jpg');
     this.load.image('btn_bee', 'bee_btn.png');
     this.load.image('btn_mosquito', 'mosquito_btn.png');
+    this.load.script('Bangers', "https://fonts.googleapis.com/css?family=Bangers")
     this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
@@ -61,9 +65,9 @@ export default class Market extends Phaser.Scene {
   create(data) {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus}) => {
-      const button = this.createButton(posY, frenchName);
-      this.setEventButton(button, price, delay, score, name, frenchName, bonus);
+    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus, bonusText}) => {
+      const button = this.createButton(posY, name);
+      this.setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText);
 
     });
   }
@@ -125,7 +129,7 @@ export default class Market extends Phaser.Scene {
 
   }
 
-  setEventButton(button, price, delay, score, name, frenchName, bonus){
+  setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText){
     button.setInteractive();
     button.on('pointerup', () => {
       if(this.score < price) {
@@ -134,6 +138,13 @@ export default class Market extends Phaser.Scene {
       this.score -= price;
       this.registry.set('score', this.score);
       bonus++;
+      if(bonusText === '') {
+        bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
+          fontFamily: 'Bangers',
+        })
+      } else {
+        bonusText.setText(`X ${bonus}`)
+      }
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
       this.addSprite(name, bonus);
       }
@@ -144,7 +155,7 @@ export default class Market extends Phaser.Scene {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
     const sprite = this.add.sprite(x - 100, y - 100, picture);
-    const bonusText = this.add.text(x - 100 - 30, y - 100, `X ${bonus}`)
+    
   }
 
   updateCounter(number){
