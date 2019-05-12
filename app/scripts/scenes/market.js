@@ -4,75 +4,75 @@ export default class Market extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-  constructor() {
+   constructor() {
     super();
     this.error = "";
-     this.market = [
-      {
-        name: "mosquito",
-        frenchName: "Moustique",
-        price: 100,
-        score: 10,
-        delay: 1000,
-        posY: 70,
-        bonus: 0,
-        bonusText: '',
-        picture: "mosquito.png",
-        description:
-          "Fléau de l’été, son \n« bzzziiiiiii » nocturne\nannonce un très mauvais\nsommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
-      },
-      {
-        name: "ladybug",
-        frenchName: "Coccinelle",
-        price: 300,
-        score: 50,
-        delay: 2000,
-        posY: 185,
-        bonus: 0,
-        bonusText: '',
-        picture: "ladybug.png",
-        description:
-          "Etant dans les premières \nà sortir de leurs refuges\nd'hiver (à partir de 12°),\nles coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
-      },
-      {
-        name: "butterfly",
-        frenchName: "Papillon",
-        price: 900,
-        score: 90,
-        delay: 4000,
-        posY: 300,
-        bonus: 0,
-        bonusText: '',
-        picture: "butterfly.png",
-        description:
-          "Comme les abbeilles, les \npapillons pollinisent \nnos cultures. Le jour, \nles papillons se mêlent aux \nautres insectes pollinisateurs. \nPar contre, la nuit, \nles papillons nocturnes sont, \navec quelques coléoptères, \nles seules en activité."
-      },
-      {
-        name: "bee",
-        frenchName: "Abeille",
-        price: 1000,
-        score: 100,
-        delay: 5000,
-        posY: 420,
-        bonus: 0,
-        bonusText: '',
-        picture: "bee.png",
-        description:
-          "Ce sont les abeilles qui \nassurent le meilleur \nransport des grains \nde pollen de fleur \nen fleur. Une abeille \npeut: stocker sur une seule \nde ses pattes postérieures \n500 000 grains de pollen, \nvisiter en une 1 heure 250 \nfleurs !"
-      },
-      {
-        name: "hive",
-        frenchName: "Ruche",
-        price: 1000000,
-        score: 1000,
-        delay: 1000,
-        posY: 540,
-        bonus: 0,
-        bonusText: '',
-        picture: "transparent-bee-pixel-5.png",
-        description:
-          "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
-      }
+    this.market = [
+    {
+      name: "mosquito",
+      frenchName: "Moustique",
+      price: 100,
+      score: 10,
+      delay: 1000,
+      posY: 70,
+      bonus: 0,
+      bonusText: '',
+      picture: "mosquito.png",
+      description:
+      "Fléau de l’été, son \n« bzzziiiiiii » nocturne\nannonce un très mauvais\nsommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
+    },
+    {
+      name: "ladybug",
+      frenchName: "Coccinelle",
+      price: 300,
+      score: 50,
+      delay: 2000,
+      posY: 185,
+      bonus: 0,
+      bonusText: '',
+      picture: "ladybug.png",
+      description:
+      "Etant dans les premières \nà sortir de leurs refuges\nd'hiver (à partir de 12°),\nles coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
+    },
+    {
+      name: "butterfly",
+      frenchName: "Papillon",
+      price: 900,
+      score: 90,
+      delay: 4000,
+      posY: 300,
+      bonus: 0,
+      bonusText: '',
+      picture: "butterfly.png",
+      description:
+      "Comme les abbeilles, les \npapillons pollinisent \nnos cultures. Le jour, \nles papillons se mêlent aux \nautres insectes pollinisateurs. \nPar contre, la nuit, \nles papillons nocturnes sont, \navec quelques coléoptères, \nles seules en activité."
+    },
+    {
+      name: "bee",
+      frenchName: "Abeille",
+      price: 1000,
+      score: 100,
+      delay: 5000,
+      posY: 420,
+      bonus: 0,
+      bonusText: '',
+      picture: "bee.png",
+      description:
+      "Ce sont les abeilles qui \nassurent le meilleur \nransport des grains \nde pollen de fleur \nen fleur. Une abeille \npeut: stocker sur une seule \nde ses pattes postérieures \n500 000 grains de pollen, \nvisiter en une 1 heure 250 \nfleurs !"
+    },
+    {
+      name: "hive",
+      frenchName: "Ruche",
+      price: 1000000,
+      score: 1000,
+      delay: 1000,
+      posY: 540,
+      bonus: 0,
+      bonusText: '',
+      picture: "transparent-bee-pixel-5.png",
+      description:
+      "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
+    }
     ];
   }
   
@@ -83,7 +83,7 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
 
-  init() {}
+   init() {}
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
@@ -92,7 +92,7 @@ export default class Market extends Phaser.Scene {
    */
 
 
-  preload() {
+   preload() {
     this.load.image("flower", "flower.jpg");
     this.market.forEach(({ name, picture }) => this.load.image(name, picture));
     this.load.image("btn_bee", "bee_btn.png");
@@ -110,8 +110,7 @@ export default class Market extends Phaser.Scene {
    *  @param {object} [data={}] - Initialization parameters.
    */
 
-  create(data) {
-
+   create(data) {
     this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
@@ -134,21 +133,21 @@ export default class Market extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
 
-  update(/* t, dt */) {}
+   update(/* t, dt */) {}
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
 
-  render() {}
+   render() {}
 
   /**
    *  Called when a scene is about to shut down.
    *
    *  @protected
    */
-  shutdown() {}
+   shutdown() {}
 
   /**
    *  Called when a scene is about to be destroyed (i.e.: removed from scene
@@ -157,33 +156,62 @@ export default class Market extends Phaser.Scene {
    *
    *  @protected
    */
-  destroy() {}
+   destroy() {}
 
-  createButton(posY, text) {
+   createButton(posY, text) {
     console.log(`btn_${text}`);
     return this.add
-      .image(this.cameras.main.width - 150, posY, `btn_${text}`)
-      .setScale(0.2, 0.2);
+    .image(this.cameras.main.width - 150, posY, `btn_${text}`)
+    .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
+
     if (this.error !== "") {
+      if (this.bulle !== undefined) {
+        this.bulle.destroy();
+      }
+      this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
       this.error.destroy();
       this.error = this.add.text(
-        120,
-        0,
-        `Pas assez de score pour acheter cette ${frenchName}`,
+        30,
+        250,
+        `Pas assez de score pour \nacheter cette ${frenchName}`,
         { fill: "red" }
-      );
+        );
       this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
-    } else {
+      this.time.addEvent({ delay: 1000, callback: () => {
+        if (this.texte !== undefined) {
+          this.texte.destroy();
+        }
+        if (this.close !== undefined) {
+          this.close.destroy();
+        }
+        this.bulle.destroy()
+      }
+    });
+    } else {   
+      if (this.bulle !== undefined) {
+        this.bulle.destroy();
+      }
+      this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
       this.error = this.add.text(
-        120,
-        0,
-        `Pas assez de score pour acheter cette ${frenchName}`,
+        30,
+        250,
+        `Pas assez de score pour \nacheter cette ${frenchName}`,
         { fill: "red" }
-      );
+        );
       this.time.addEvent({ delay: 1000, callback: () => this.error.destroy() });
+      this.time.addEvent({ delay: 1000, callback: () => { 
+        if (this.texte !== undefined) {
+          this.texte.destroy();
+        }
+        if (this.close !== undefined) {
+          this.close.destroy();
+        }
+        this.bulle.destroy()
+      } 
+    });
     }
   }
 
@@ -193,38 +221,47 @@ export default class Market extends Phaser.Scene {
       if (this.score < price) {
         this.addError(frenchName);
       } else {
-      this.score -= price;
-      this.registry.set('score', this.score);
-      bonus++;
-      if(bonusText === '') {
-        bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
-          fontFamily: 'Bangers',
-        })
-      } else {
-        bonusText.setText(`X ${bonus}`)
-      }
-      this.timer = this.time.addEvent({
+        this.score -= price;
+        this.registry.set('score', this.score);
+        bonus++;
+        if(bonusText === '') {
+          bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
+            fontFamily: 'Bangers',
+          })
+        } else {
+          bonusText.setText(`X ${bonus}`)
+        }
+        this.timer = this.time.addEvent({
           delay: delay,
           loop: true,
           callback: () => this.updateCounter(score),
           callbackScope: this
         });
-      this.addSprite(name, bonus);
+        this.addSprite(name, bonus);
+        this.addBulle(description);
       }
-    this.addBulle(description);
     });
   }
 
   addBulle(description) {
+    if (this.bulle !== undefined) { 
+      this.bulle.destroy();
+    }    
+    if (this.texte !== undefined) { 
+      this.texte.destroy();
+    }
+    if (this.close !== undefined) { 
+      this.close.destroy();
+    }
     this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
     this.texte = this.add.text(30, 195, description, {fill: 'black'});
     this.close = this.add.image(300, 370, "close").setInteractive()
-      .setScale(0.4)
-      .on('pointerdown', () => {
-        this.close.destroy();
-        this.bulle.destroy();
-        this.texte.destroy();
-      })
+    .setScale(0.4)
+    .on('pointerdown', () => {
+      this.close.destroy();
+      this.bulle.destroy();
+      this.texte.destroy();
+    })
   }
 
   addSprite(picture) {
