@@ -6,12 +6,8 @@ export default class Market extends Phaser.Scene {
    */
   constructor() {
     super();
-    this.bonus = {
-      mosquito: 0,
-      bee: 0
-    };
     this.error = "";
-    this.market = [
+     this.market = [
       {
         name: "mosquito",
         frenchName: "Moustique",
@@ -19,9 +15,11 @@ export default class Market extends Phaser.Scene {
         score: 10,
         delay: 1000,
         posY: 70,
+        bonus: 0,
+        bonusText: '',
         picture: "mosquito.png",
         description:
-          "Fléau de l’été, son « bzzziiiiiii » nocturne annonce un très mauvais sommeil en perspective. Pourtant, il a autre rôle nettement moins connu: la pollinisation. « Seule la femelle moustique se gave de sang, les moustiques se nourrissent normalement de nectar », détaille Claudio Lazzari. Les moustiques pollinisent peu et plutôt des fleurs ou des plantes non consommables. Les moustiques reprèsentent la famille des diptères qui comprennent aussi les syrphes, les bombyles mais également les mouches."
+          "Fléau de l’été, son \n« bzzziiiiiii » nocturne\nannonce un très mauvais\nsommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
       },
       {
         name: "ladybug",
@@ -30,9 +28,11 @@ export default class Market extends Phaser.Scene {
         score: 50,
         delay: 2000,
         posY: 185,
+        bonus: 0,
+        bonusText: '',
         picture: "ladybug.png",
         description:
-          "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
+          "Etant dans les premières \nà sortir de leurs refuges\nd'hiver (à partir de 12°),\nles coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
       },
       {
         name: "butterfly",
@@ -41,9 +41,11 @@ export default class Market extends Phaser.Scene {
         score: 90,
         delay: 4000,
         posY: 300,
+        bonus: 0,
+        bonusText: '',
         picture: "butterfly.png",
         description:
-          "Comme les abbeilles, les papillons pollinisent beaucoup nos cultures. Le jour, les papillons se mêlent aux autres insectes pollinisateurs. Par contre, la nuit, les papillons nocturnes sont, avec quelques coléoptères, les seules en activité. Le papillon représentent la famille des lépidoptères."
+          "Comme les abbeilles, les \npapillons pollinisent \nnos cultures. Le jour, \nles papillons se mêlent aux \nautres insectes pollinisateurs. \nPar contre, la nuit, \nles papillons nocturnes sont, \navec quelques coléoptères, \nles seules en activité."
       },
       {
         name: "bee",
@@ -52,9 +54,11 @@ export default class Market extends Phaser.Scene {
         score: 100,
         delay: 5000,
         posY: 420,
+        bonus: 0,
+        bonusText: '',
         picture: "bee.png",
         description:
-          "Ce sont surtout les abeilles qui assurent le meilleur transport des grains de pollen de fleur en fleur. Une abeille peut: stocker sur une seule de ses pattes postérieures 500 000 grains de pollen, visiter en une 1 heure 250 fleurs ! Elle participe à 71% de la pollinisation des plantes consommables, c’est dire à quel point elle joue un rôle majeur dans la pollinisation. Les abeilles reprèsentent la famille des hyménoptères qui englobent les abeilles qu’elles soient sauvages ou bien domestiques, les bourdons, les guêpes, mais également les fourmis"
+          "Ce sont les abeilles qui \nassurent le meilleur \nransport des grains \nde pollen de fleur \nen fleur. Une abeille \npeut: stocker sur une seule \nde ses pattes postérieures \n500 000 grains de pollen, \nvisiter en une 1 heure 250 \nfleurs !"
       },
       {
         name: "hive",
@@ -63,13 +67,15 @@ export default class Market extends Phaser.Scene {
         score: 1000,
         delay: 1000,
         posY: 540,
+        bonus: 0,
+        bonusText: '',
         picture: "transparent-bee-pixel-5.png",
         description:
-          "Les ruches peuvent contenir entre 15 000 et 60 000 abeilles qui peuvent parcourir environ 30km/heure."
+          "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
       }
     ];
   }
-
+  
   /**
    *  Called when this scene is initialized.
    *
@@ -85,6 +91,7 @@ export default class Market extends Phaser.Scene {
    *  @protected
    */
 
+
   preload() {
     this.load.image("flower", "flower.jpg");
     this.market.forEach(({ name, picture }) => this.load.image(name, picture));
@@ -93,6 +100,7 @@ export default class Market extends Phaser.Scene {
     this.load.image("btn_butterfly", "butterfly_btn.png")
     this.load.image("btn_hive", "hive_btn.png")
     this.load.image("btn_ladybug", "ladybug_btn.png")
+    this.load.script('Bangers', "https://fonts.googleapis.com/css?family=Bangers")
   }
 
   /**
@@ -103,14 +111,15 @@ export default class Market extends Phaser.Scene {
    */
 
   create(data) {
+
     this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach(({ name, price, score, delay, posY, frenchName }) => {
+    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus, bonusText, description}) => {
       const button = this.createButton(posY, name);
-
-      this.setEventButton(button, price, delay, score, name, frenchName);
+      this.setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description);
     });
+
   }
 
   handle(parent, key, data) {
@@ -178,30 +187,44 @@ export default class Market extends Phaser.Scene {
     }
   }
 
-  setEventButton(button, price, delay, score, name, frenchName) {
+  setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description){
     button.setInteractive();
     button.on("pointerup", () => {
       if (this.score < price) {
         this.addError(frenchName);
       } else {
-        this.score -= price;
-        this.registry.set("score", this.score);
-        this.bonus.bee++;
-        this.timer = this.time.addEvent({
+      this.score -= price;
+      this.registry.set('score', this.score);
+      bonus++;
+      if(bonusText === '') {
+        bonusText = this.add.text(this.cameras.main.width - 65, posY - 45, `X ${bonus}`, {
+          fontFamily: 'Bangers',
+        })
+      } else {
+        bonusText.setText(`X ${bonus}`)
+      }
+      this.timer = this.time.addEvent({
           delay: delay,
           loop: true,
           callback: () => this.updateCounter(score),
           callbackScope: this
         });
-        this.addSprite(name);
+      this.addSprite(name, bonus);
       }
-    this.addBulle();
+    this.addBulle(description);
     });
   }
 
-  addBulle() {
-    this.add.image(150, 300, "bulle").setScale(0.4);
-    this.add.image(300, 370, "close").setScale(0.4);
+  addBulle(description) {
+    this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
+    this.texte = this.add.text(30, 195, description, {fill: 'black'});
+    this.close = this.add.image(300, 370, "close").setInteractive()
+      .setScale(0.4)
+      .on('pointerdown', () => {
+        this.close.destroy();
+        this.bulle.destroy();
+        this.texte.destroy();
+      })
   }
 
   addSprite(picture) {
