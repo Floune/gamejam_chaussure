@@ -54,16 +54,20 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  init(data) {}
+
+  init() {}
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
    *
    *  @protected
    */
+
   preload() {
     this.load.image("flower", "flower.jpg");
     this.market.forEach(({ name, picture }) => this.load.image(name, picture));
+    this.load.image("btn_bee", "bee_btn.png");
+    this.load.image("btn_mosquito", "mosquito_btn.png");
   }
 
   /**

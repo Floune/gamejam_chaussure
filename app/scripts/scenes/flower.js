@@ -33,14 +33,39 @@ export default class Flower extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-
-  create(data) {}
+  create(data) {
+    this.score = data.score;
+    this.anims.create({
+      key: "snooze",
+      frames: [
+        { key: "fleur1" },
+        { key: "fleur2" },
+        { key: "fleur3" },
+        { key: "fleur4", duration: 10 }
+      ],
+      frameRate: 15
+    });
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    const flower = this.add.sprite(x, y, "flower");
+    flower.on("pointerdown", () => {
+      this.score++;
+      this.registry.set("score", this.score);
+      this.bounce(flower);
+    });
+    this.registry.events.on("changedata", this.handle, this);
+    flower.setInteractive();
+  }
 
   handle(parent, key, data) {
     console.log(parent, key, data);
     console.log("prout");
   }
 
+  bounce(flower) {
+    console.log("bouge connard");
+    flower.play("snooze");
+  }
   /**
    *  Handles updates to game logic, physics and game objects.
    *
@@ -49,16 +74,7 @@ export default class Flower extends Phaser.Scene {
    *  @param {number} dt - Time elapsed since last update.
    */
 
-  update(data) {
-    const x = this.cameras.main.width / 2;
-    const y = this.cameras.main.height / 2;
-    const flower = this.add.sprite(x + 20, y, "flower");
-    flower.setInteractive();
-    flower.on("pointerdown", () => {
-      this.data.score++;
-      console.log(this.data.score);
-    });
-  }
+  update() {}
 
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
