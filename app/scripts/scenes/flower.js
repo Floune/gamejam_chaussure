@@ -15,8 +15,7 @@ export default class Flower extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  init(data) {
-    console.log(data.score);
+  init() {
   }
 
   /**
@@ -58,8 +57,7 @@ export default class Flower extends Phaser.Scene {
   }
 
   handle(parent, key, data) {
-    console.log(parent, key, data);
-    console.log("prout");
+
   }
 
   bounce(flower) {
