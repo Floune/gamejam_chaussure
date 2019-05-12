@@ -13,21 +13,21 @@ export default class Market extends Phaser.Scene {
     this.error = '';
     this.market = [
     {
-      name: 'Mosquito',
+      name: 'mosquito',
       frenchName: 'Moustique',
       price: 100,
       score: 10,
       delay: 1000,
-      posY: 0,
+      posY: 55,
       picture: 'mosquito.png'
     },
     {
-      name: 'Bee',
+      name: 'bee',
       frenchName: 'Abeille',
       price: 1000,
       score: 100,
       delay: 5000,
-      posY: 30,
+      posY: 180,
       picture: 'bee.png'
     }
     ]
@@ -64,7 +64,7 @@ export default class Market extends Phaser.Scene {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
-      const button = this.createButton(posY, frenchName);
+      const button = this.createButton(posY, name);
       this.setEventButton(button, price, delay, score, name, frenchName);
     });
   }
@@ -110,7 +110,8 @@ export default class Market extends Phaser.Scene {
   }
 
    createButton(posY, text){
-    return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
+    return this.add.image(this.cameras.main.width - 150, posY, `btn_${text}`)
+      .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
