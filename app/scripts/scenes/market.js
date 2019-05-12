@@ -7,7 +7,7 @@ export default class Market extends Phaser.Scene {
   constructor() {
     super();
     this.error = "";
-     this.market = [
+    this.market = [
       {
         name: "mosquito",
         frenchName: "Moustique",
@@ -16,7 +16,7 @@ export default class Market extends Phaser.Scene {
         delay: 1000,
         posY: 70,
         bonus: 0,
-        bonusText: '',
+        bonusText: "",
         picture: "mosquito.png",
         description:
           "Fléau de l’été, son \n« bzzziiiiiii » nocturne\nannonce un très mauvais\nsommeil en perspective.\nPourtant, il a autre rôle \nnettement moins connu:\nla pollinisation."
@@ -29,7 +29,7 @@ export default class Market extends Phaser.Scene {
         delay: 2000,
         posY: 185,
         bonus: 0,
-        bonusText: '',
+        bonusText: "",
         picture: "ladybug.png",
         description:
           "Etant dans les premières \nà sortir de leurs refuges\nd'hiver (à partir de 12°),\nles coccinelles affaiblies \npas la trêve hivernale \nrecherchent à se refaire une\nsanté avec le pollen et le \nnectar des fleurs."
@@ -42,7 +42,7 @@ export default class Market extends Phaser.Scene {
         delay: 4000,
         posY: 300,
         bonus: 0,
-        bonusText: '',
+        bonusText: "",
         picture: "butterfly.png",
         description:
           "Comme les abbeilles, les \npapillons pollinisent \nnos cultures. Le jour, \nles papillons se mêlent aux \nautres insectes pollinisateurs. \nPar contre, la nuit, \nles papillons nocturnes sont, \navec quelques coléoptères, \nles seules en activité."
@@ -55,7 +55,7 @@ export default class Market extends Phaser.Scene {
         delay: 5000,
         posY: 420,
         bonus: 0,
-        bonusText: '',
+        bonusText: "",
         picture: "bee.png",
         description:
           "Ce sont les abeilles qui \nassurent le meilleur \nransport des grains \nde pollen de fleur \nen fleur. Une abeille \npeut: stocker sur une seule \nde ses pattes postérieures \n500 000 grains de pollen, \nvisiter en une 1 heure 250 \nfleurs !"
@@ -68,7 +68,7 @@ export default class Market extends Phaser.Scene {
         delay: 1000,
         posY: 540,
         bonus: 0,
-        bonusText: '',
+        bonusText: "",
         picture: "transparent-bee-pixel-5.png",
         description:
           "Les ruches peuvent contenir \nentre 15 000 et 60 000 \nabeilles qui peuvent \nparcourir environ 30km/h."
@@ -91,16 +91,18 @@ export default class Market extends Phaser.Scene {
    *  @protected
    */
 
-
   preload() {
     this.load.image("flower", "flower.jpg");
     this.market.forEach(({ name, picture }) => this.load.image(name, picture));
     this.load.image("btn_bee", "bee_btn.png");
-    this.load.image("btn_mosquito", "mosquito_btn.png")
-    this.load.image("btn_butterfly", "butterfly_btn.png")
-    this.load.image("btn_hive", "hive_btn.png")
-    this.load.image("btn_ladybug", "ladybug_btn.png")
-    this.load.script('Bangers', "https://fonts.googleapis.com/css?family=Bangers")
+    this.load.image("btn_mosquito", "mosquito_btn.png");
+    this.load.image("btn_butterfly", "butterfly_btn.png");
+    this.load.image("btn_hive", "hive_btn.png");
+    this.load.image("btn_ladybug", "ladybug_btn.png");
+    this.load.script(
+      "Bangers",
+      "https://fonts.googleapis.com/css?family=Bangers"
+    );
   }
 
   /**
@@ -111,15 +113,36 @@ export default class Market extends Phaser.Scene {
    */
 
   create(data) {
-
     this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus, bonusText, description}) => {
-      const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description);
-    });
-
+    this.market.forEach(
+      ({
+        name,
+        price,
+        score,
+        delay,
+        posY,
+        frenchName,
+        bonus,
+        bonusText,
+        description
+      }) => {
+        const button = this.createButton(posY, name);
+        this.setEventButton(
+          button,
+          price,
+          delay,
+          score,
+          name,
+          frenchName,
+          bonus,
+          posY,
+          bonusText,
+          description
+        );
+      }
+    );
   }
 
   handle(parent, key, data) {
@@ -160,7 +183,7 @@ export default class Market extends Phaser.Scene {
   destroy() {}
 
   createButton(posY, text) {
-    console.log(`btn_${text}`);
+    // console.log(`btn_${text}`);
     return this.add
       .image(this.cameras.main.width - 150, posY, `btn_${text}`)
       .setScale(0.2, 0.2);
@@ -187,7 +210,18 @@ export default class Market extends Phaser.Scene {
     }
   }
 
-  setEventButton(button, price, delay, score, name, frenchName, bonus, posY, bonusText, description){
+  setEventButton(
+    button,
+    price,
+    delay,
+    score,
+    name,
+    frenchName,
+    bonus,
+    posY,
+    bonusText,
+    description
+  ) {
     button.setInteractive();
     button.on("pointerup", () => {
       if (this.score < price) {
@@ -210,22 +244,24 @@ export default class Market extends Phaser.Scene {
           callback: () => this.updateCounter(score),
           callbackScope: this
         });
-      this.addSprite(name, bonus);
+        this.addSprite(name, bonus);
       }
-    this.addBulle(description);
+      this.addBulle(description);
     });
   }
 
   addBulle(description) {
     this.bulle = this.add.image(150, 300, "bulle").setScale(0.4);
-    this.texte = this.add.text(30, 195, description, {fill: 'black'});
-    this.close = this.add.image(300, 370, "close").setInteractive()
+    this.texte = this.add.text(30, 195, description, { fill: "black" });
+    this.close = this.add
+      .image(300, 370, "close")
+      .setInteractive()
       .setScale(0.4)
-      .on('pointerdown', () => {
+      .on("pointerdown", () => {
         this.close.destroy();
         this.bulle.destroy();
         this.texte.destroy();
-      })
+      });
   }
 
   addSprite(picture) {
@@ -248,7 +284,6 @@ export default class Market extends Phaser.Scene {
     }else if (picture === "hive") {
       this.add.sprite(x + 80 , y + 230, picture).setScale(0.5, 0.5);
     }
-
   }
 
   updateCounter(number) {
