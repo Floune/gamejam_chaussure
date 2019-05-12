@@ -9,24 +9,24 @@ export default class Market extends Phaser.Scene {
     this.error = '';
     this.market = [
     {
-      name: 'Mosquito',
+      name: 'mosquito',
       frenchName: 'Moustique',
       price: 100,
       score: 10,
       delay: 1000,
-      posY: 0,
-      picture: 'mosquito.png',
       bonus: 0
+      posY: 55,
+      picture: 'mosquito.png'
     },
     {
-      name: 'Bee',
+      name: 'bee',
       frenchName: 'Abeille',
       price: 1000,
       score: 100,
       delay: 5000,
-      posY: 30,
-      picture: 'bee.png',
       bonus: 0
+      posY: 180,
+      picture: 'bee.png'
     }
     ]
   }
@@ -47,6 +47,8 @@ export default class Market extends Phaser.Scene {
    */
    preload() {
     this.load.image('flower', 'flower.jpg');
+    this.load.image('btn_bee', 'bee_btn.png');
+    this.load.image('btn_mosquito', 'mosquito_btn.png');
     this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
@@ -62,6 +64,7 @@ export default class Market extends Phaser.Scene {
     this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus}) => {
       const button = this.createButton(posY, frenchName);
       this.setEventButton(button, price, delay, score, name, frenchName, bonus);
+
     });
   }
 
@@ -106,7 +109,8 @@ export default class Market extends Phaser.Scene {
   }
 
    createButton(posY, text){
-    return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
+    return this.add.image(this.cameras.main.width - 150, posY, `btn_${text}`)
+      .setScale(0.2, 0.2);
   }
 
   addError(frenchName) {
