@@ -63,7 +63,6 @@ export default class Flower extends Phaser.Scene {
   }
 
   bounce(flower) {
-    console.log("bouge connard");
     flower.play("snooze");
   }
   /**

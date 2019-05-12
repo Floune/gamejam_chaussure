@@ -48,13 +48,24 @@ export default class Market extends Phaser.Scene {
       {
         name: "Ladybug",
         frenchName: "Coccinelle",
-        price: 900,
-        score: 90,
-        delay: 4000,
+        price: 300,
+        score: 50,
+        delay: 2000,
         posY: 30,
-        picture: "butterfly.png",
+        picture: "ladybug.png",
         description:
           "Etant dans les premières à sortir de leurs refuges d'hiver (à partir de 12°), les coccinelles affaiblies pas la trêve hivernale recherchent à se refaire une santé avec le pollen et le nectar des fleurs, riches en protéines. La coccinelle représente les coléoptères qui représente tous les insectes avec des carapaces (coccinelle, scarabée, gendarmes, etc.). "
+      },
+      {
+        name: "Hive",
+        frenchName: "Ruche",
+        price: 1000000,
+        score: 1000,
+        delay: 1000,
+        posY: 30,
+        picture: "transparent-bee-pixel-5.png",
+        description:
+          "Les ruches peuvent contenir entre 15 000 et 60 000 abeilles qui peuvent parcourir environ 30km/heure."
       }
     ];
   }
@@ -91,7 +102,7 @@ export default class Market extends Phaser.Scene {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach(({ name, price, score, delay, posY, frenchName }) => {
-      const button = this.createButton(posY, frenchName);
+      const button = this.createButton(posY, name);
 
       this.setEventButton(button, price, delay, score, name, frenchName);
     });
@@ -108,12 +119,14 @@ export default class Market extends Phaser.Scene {
    *  @param {number} t - Current internal clock time.
    *  @param {number} dt - Time elapsed since last update.
    */
+
   update(/* t, dt */) {}
   /**
    *  Called after a scene is rendered. Handles rendenring post processing.
    *
    *  @protected
    */
+
   render() {}
 
   /**
@@ -182,7 +195,11 @@ export default class Market extends Phaser.Scene {
   addSprite(picture) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.add.sprite(x - 100, y - 100, picture);
+    if (picture === "mosquito") {
+      this.add.sprite(x - 100, y - 100, picture).setScale(0.2, 0.2);
+    } else if (picture === "bee") {
+      this.add.sprite(x - 100, y - 200, picture).setScale(0.2, 0.2);
+    }
   }
 
   updateCounter(number) {
