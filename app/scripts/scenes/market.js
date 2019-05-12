@@ -195,12 +195,13 @@ export default class Market extends Phaser.Scene {
         });
         this.addSprite(name);
       }
-    });
     this.addBulle();
+    });
   }
 
   addBulle() {
     this.add.image(150, 300, "bulle").setScale(0.4);
+    this.add.image(300, 370, "close").setScale(0.4);
   }
 
   addSprite(picture) {
