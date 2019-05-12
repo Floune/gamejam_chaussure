@@ -24,7 +24,7 @@ export default class Game extends Phaser.Scene {
   create(/* data */) {
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    const back_button = this.add.image(980, 620, "back").setScale(0.5, 0.5);
+    const back_button = this.add.image(1145, 665, "back").setScale(0.5, 0.5);
     back_button.setInteractive();
     back_button.alpha = 0.6;
     back_button.on("pointerup", () => {
