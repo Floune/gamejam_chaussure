@@ -37,13 +37,15 @@ export default class SplashScreen extends Phaser.Scene {
     this.showCover();
     this.showProgressBar();
     this.load
-      .image("start_bee", "splash-bee.png")
+      .image("start_bee", "bee.png")
       .image("red", "red.png")
       .image("play", "PNG/btn/play.png")
       .image("plus", "PNG/settings/97.png")
       .image("minus", "PNG/settings/98.png")
       .image("bg1", "bg1.jpg")
-      .image("back", "PNG/btn/prew.png");
+      .image("back", "PNG/btn/prew.png")
+      .image("background", "layer07_Sky.png");
+
     this.load.audio("startup_sound", "Bee-noise.mp3");
 
     //  HINT: Declare all game assets to be loaded here.

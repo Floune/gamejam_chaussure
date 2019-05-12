@@ -4,27 +4,32 @@ export default class Market extends Phaser.Scene {
    *
    *  @extends Phaser.Scene
    */
-  constructor() {
+   constructor() {
     super();
     this.bonus = {
       mosquito: 0,
       bee: 0,
     };
+    this.error = '';
     this.market = [
-      {
-        name: 'Mosquito',
-        price: 100,
-        score: 10,
-        delay: 1000,
-        posY: 0
-      },
-      {
-        name: 'Bee',
-        price: 1000,
-        score: 100,
-        delay: 5000,
-        posY: 30
-      }
+    {
+      name: 'Mosquito',
+      frenchName: 'Moustique',
+      price: 100,
+      score: 10,
+      delay: 1000,
+      posY: 0,
+      picture: 'mosquito.png'
+    },
+    {
+      name: 'Bee',
+      frenchName: 'Abeille',
+      price: 1000,
+      score: 100,
+      delay: 5000,
+      posY: 30,
+      picture: 'bee.png'
+    }
     ]
   }
 
@@ -34,17 +39,17 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
-  init(data) {
-  }
+   init(data) {
+   }
 
   /**
    *  Used to declare game assets to be loaded using the loader plugin API.
    *
    *  @protected
    */
-  preload() {
+   preload() {
     this.load.image('flower', 'flower.jpg');
-    this.load.image('bee', 'splash-bee.png');
+    this.market.forEach(({name, picture}) => this.load.image(name, picture))
   }
 
   /**
@@ -55,10 +60,15 @@ export default class Market extends Phaser.Scene {
    */
   create(data) {
     this.score = data.score;
-    this.market.forEach(  ({ name, price, score, delay, posY }) => {
-      const button = this.createButton(posY, name);
-      this.setEventButton(button, price, delay, score);
+    this.registry.events.on("changedata", this.handle, this);
+    this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
+      const button = this.createButton(posY, frenchName);
+      this.setEventButton(button, price, delay, score, name, frenchName);
     });
+  }
+
+  handle(parent, key, data) {
+    this.score = data
   }
 
   /**
@@ -97,24 +107,56 @@ export default class Market extends Phaser.Scene {
   destroy() {
   }
 
-  createButton(posY, text){
+   createButton(posY, text){
     return this.add.text(this.cameras.main.width - 200, posY, text, this.styleButton);
   }
 
-  setEventButton(button, price, delay, score){
+  addError(frenchName) {
+    if(this.error !== '') {
+      this.error.destroy();
+      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
+      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+    } else {
+      this.error = this.add.text(120, 0, `Pas assez de score pour acheter cette ${frenchName}`, {fill: 'red'});
+      this.time.addEvent({delay: 1000, callback: () => this.error.destroy()})
+    }
+
+  }
+
+  setEventButton(button, price, delay, score, name, frenchName){
     button.setInteractive();
     button.on('pointerup', () => {
+      if(this.score < price) {
+        this.addError(frenchName);
+      } else {
       this.score -= price;
+<<<<<<< HEAD
       this.registry.set('score', this.score)
       // this.scoreText.setText(`Score: ${this.score}`);
       this.bonus.bee++;
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+=======
+      this.registry.set('score', this.score);
+      this.bonus.bee ++;
+      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
+      this.addSprite(name);
+      }
+>>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
     })
+  }
+
+  addSprite(picture){
+    const x = this.cameras.main.width / 2;
+    const y = this.cameras.main.height / 2;
+    this.add.sprite(x - 100, y - 100, picture);
   }
 
   updateCounter(number){
     this.score += number;
     this.registry.set('score', this.score);
+<<<<<<< HEAD
     //this.scoreText.setText(`Score: ${this.score}`);
+=======
+>>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
   }
 }
