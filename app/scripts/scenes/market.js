@@ -6,10 +6,6 @@ export default class Market extends Phaser.Scene {
    */
    constructor() {
     super();
-    this.bonus = {
-      mosquito: 0,
-      bee: 0,
-    };
     this.error = '';
     this.market = [
     {
@@ -19,7 +15,8 @@ export default class Market extends Phaser.Scene {
       score: 10,
       delay: 1000,
       posY: 0,
-      picture: 'mosquito.png'
+      picture: 'mosquito.png',
+      bonus: 0
     },
     {
       name: 'Bee',
@@ -28,7 +25,8 @@ export default class Market extends Phaser.Scene {
       score: 100,
       delay: 5000,
       posY: 30,
-      picture: 'bee.png'
+      picture: 'bee.png',
+      bonus: 0
     }
     ]
   }
@@ -61,9 +59,9 @@ export default class Market extends Phaser.Scene {
   create(data) {
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
-    this.market.forEach( ({ name, price, score, delay, posY, frenchName}) => {
+    this.market.forEach( ({ name, price, score, delay, posY, frenchName, bonus}) => {
       const button = this.createButton(posY, frenchName);
-      this.setEventButton(button, price, delay, score, name, frenchName);
+      this.setEventButton(button, price, delay, score, name, frenchName, bonus);
     });
   }
 
@@ -123,40 +121,30 @@ export default class Market extends Phaser.Scene {
 
   }
 
-  setEventButton(button, price, delay, score, name, frenchName){
+  setEventButton(button, price, delay, score, name, frenchName, bonus){
     button.setInteractive();
     button.on('pointerup', () => {
       if(this.score < price) {
         this.addError(frenchName);
       } else {
       this.score -= price;
-<<<<<<< HEAD
-      this.registry.set('score', this.score)
-      // this.scoreText.setText(`Score: ${this.score}`);
-      this.bonus.bee++;
-      this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-=======
       this.registry.set('score', this.score);
-      this.bonus.bee ++;
+      bonus++;
       this.timer = this.time.addEvent({delay: delay, loop: true, callback: () => this.updateCounter(score), callbackScope: this});
-      this.addSprite(name);
+      this.addSprite(name, bonus);
       }
->>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
     })
   }
 
-  addSprite(picture){
+  addSprite(picture, bonus){
     const x = this.cameras.main.width / 2;
     const y = this.cameras.main.height / 2;
-    this.add.sprite(x - 100, y - 100, picture);
+    const sprite = this.add.sprite(x - 100, y - 100, picture);
+    const bonusText = this.add.text(x - 100 - 30, y - 100, `X ${bonus}`)
   }
 
   updateCounter(number){
     this.score += number;
     this.registry.set('score', this.score);
-<<<<<<< HEAD
-    //this.scoreText.setText(`Score: ${this.score}`);
-=======
->>>>>>> 65f5df997a4e1e9430c892993063c15da85be7c9
   }
 }
