@@ -98,7 +98,9 @@ export default class Market extends Phaser.Scene {
    *  @protected
    *  @param {object} [data={}] - Initialization parameters.
    */
+
   create(data) {
+    this.add.image(100, 500, "aide");
     this.score = data.score;
     this.registry.events.on("changedata", this.handle, this);
     this.market.forEach(({ name, price, score, delay, posY, frenchName }) => {
@@ -190,6 +192,11 @@ export default class Market extends Phaser.Scene {
         this.addSprite(name);
       }
     });
+    this.addBulle();
+  }
+
+  addBulle() {
+    this.add.image(150, 300, "bulle").setScale(0.4);
   }
 
   addSprite(picture) {
